@@ -1,9 +1,9 @@
-defmodule Hello.Umbrella.MixProject do
+defmodule Core.Umbrella.MixProject do
   use Mix.Project
 
   def project do
     [
-      apps_path: "apps",
+      apps_path: "src",
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -47,10 +47,9 @@ defmodule Hello.Umbrella.MixProject do
   # Umbrella projects require releases to be explicitly defined with a non-empty applications key that chooses which umbrella children should be part of the releases
   defp releases do
     [
-      hello_umbrella: [
+      core_umbrella: [
         applications: [
-          hello: :permanent,
-          hello_web: :permanent
+          app: :permanent
         ]
       ]
     ]
