@@ -10,8 +10,8 @@
 import Config
 
 # Configure Mix tasks and generators
-config :hello,
-  ecto_repos: [Hello.Repo]
+config :core,
+  ecto_repos: [Core.Repo]
 
 # Configures the mailer
 #
@@ -20,29 +20,29 @@ config :hello,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :hello, Hello.Mailer, adapter: Swoosh.Adapters.Local
+config :core, Core.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 
-config :hello_web,
-  ecto_repos: [Hello.Repo],
-  generators: [context_app: :hello]
+config :app,
+  ecto_repos: [Core.Repo],
+  generators: [context_app: :core]
 
 # Configures the endpoint
-config :hello_web, HelloWeb.Endpoint,
+config :app, App.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: HelloWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Hello.PubSub,
+  render_errors: [view: App.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Core.PubSub,
   live_view: [signing_salt: "CB4Jsmaq"]
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.0",
+  version: "0.21.5",
   default: [
     args:
       ~w(js/app.jsx --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
-    cd: Path.expand("../apps/hello_web/assets", __DIR__),
+    cd: Path.expand("../src/app/assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 

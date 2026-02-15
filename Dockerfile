@@ -35,8 +35,7 @@ ENV MIX_ENV="prod"
 COPY mix.exs mix.lock ./
 
 # copy apps/**/mix.exs
-COPY apps/hello/mix.exs ./apps/hello/mix.exs
-COPY apps/hello_web/mix.exs ./apps/hello_web/mix.exs
+COPY src/app/mix.exs ./src/app/mix.exs
 
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
@@ -47,26 +46,29 @@ RUN mkdir config
 COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN mix deps.compile
 
-COPY apps/hello_web/priv apps/hello_web/priv
+COPY src/app/priv src/app/priv
 
 # note: if your project uses a tool like https://purgecss.com/,
 # which customizes asset compilation based on what it finds in
 # your Elixir templates, you will need to move the asset compilation
 # step down so that `lib` is available.
-COPY apps/hello_web/assets apps/hello_web/assets
+COPY src/app/assets src/app/assets
+
+# install npm dependencies for React/TSX
+RUN cd src/app/assets && npm install
 
 # compile assets
-RUN cd apps/hello_web && mix assets.deploy
+RUN cd src/app && mix assets.deploy
 
 # Compile the release
-COPY apps apps
+COPY src src
 
 RUN mix compile
 
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
 
-COPY rel rel
+COPY src/app/rel src/app/rel
 RUN mix release
 
 # start a new build stage so that the final image will only contain
@@ -87,8 +89,8 @@ WORKDIR "/app"
 RUN chown nobody /app
 
 # Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/_build/prod/rel/hello_umbrella ./
+COPY --from=builder --chown=nobody:root /app/_build/prod/rel/core_umbrella ./
 
 USER nobody
 
-ENTRYPOINT [ "/app/bin/hello_umbrella" ]
+ENTRYPOINT [ "/app/bin/core_umbrella" ]
