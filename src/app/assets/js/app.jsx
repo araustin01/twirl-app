@@ -45,8 +45,7 @@ window.liveSocket = liveSocket
 
 import React from "react";
 import ReactDOM from "react-dom";
-
-import YoutubeEmbed from "./embed";
+import DefaultPage from "./pages/default";
 
 const root = document.getElementById("root");
-ReactDOM.render(<YoutubeEmbed target="https://www.youtube.com/watch?v=insM7oUYNOE" />, root);
+ReactDOM.render(<DefaultPage />, root);

@@ -2,9 +2,10 @@ import React from "react";
 
 interface YoutubeEmbedProps {
   target: string;
+  autoplayEnabled?: boolean;
 }
 
-const YoutubeEmbed: React.FC<YoutubeEmbedProps> = ({ target }) => {
+const YoutubeEmbed: React.FC<YoutubeEmbedProps> = ({ target, autoplayEnabled = false }) => {
   const getYoutubeId = (url: string): string | null => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
@@ -15,15 +16,19 @@ const YoutubeEmbed: React.FC<YoutubeEmbedProps> = ({ target }) => {
 
   if (!videoId) return <span>Invalid YouTube URL</span>;
 
+  const videoSrc = autoplayEnabled
+    ? `https://www.youtube.com/embed/${videoId}?autoplay=1`
+    : `https://www.youtube.com/embed/${videoId}`;
+
   return (
     <div className="youtube-embed">
       <iframe
         width="560"
         height="315"
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+        src={videoSrc}
         title="YouTube video player"
         frameBorder="0"
-        allow="autoplay;"
+        allow="autoplay; encrypted-media"
         allowFullScreen
       ></iframe>
     </div>
