@@ -46,7 +46,7 @@ window.liveSocket = liveSocket
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Greeter from "./greeter";
+import YoutubeEmbed from "./embed";
 
-const greeting = document.getElementById("greeting");
-ReactDOM.render(<Greeter name="Phoenix" />, greeting);
+const root = document.getElementById("root");
+ReactDOM.render(<YoutubeEmbed target="https://www.youtube.com/watch?v=insM7oUYNOE" />, root);
