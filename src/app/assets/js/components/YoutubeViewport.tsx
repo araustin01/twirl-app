@@ -9,9 +9,7 @@ interface YoutubeViewportProps {
 
 const getYoutubeId = (input: string): string | null => {
   const directIdRegex = /^[a-zA-Z0-9_-]{11}$/;
-  if (directIdRegex.test(input)) {
-    return input;
-  }
+  if (directIdRegex.test(input)) return input;
 
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = input.match(regExp);
@@ -20,22 +18,19 @@ const getYoutubeId = (input: string): string | null => {
 
 const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   url,
-  autoplayEnabled = true,
+  autoplayEnabled = false,
   isPlaying,
   isMuted,
 }) => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const [isReady, setIsReady] = useState(false);
 
   const videoId = useMemo(() => getYoutubeId(url), [url]);
 
   const videoSrc = useMemo(() => {
-    if (!videoId) {
-      return "";
-    }
+    if (!videoId) return "";
 
     const params = new URLSearchParams({
-      autoplay: "1",
+      autoplay: autoplayEnabled ? "1" : "0",
       controls: "0",
       disablekb: "1",
       enablejsapi: "1",
@@ -44,7 +39,6 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
       modestbranding: "1",
       playsinline: "1",
       rel: "0",
-      mute: autoplayEnabled ? "0" : "1",
       origin: window.location.origin,
     });
 
@@ -52,42 +46,17 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   }, [autoplayEnabled, videoId]);
 
   const postCommand = (func: "playVideo" | "pauseVideo" | "mute" | "unMute") => {
-    const iframe = iframeRef.current;
-    if (!iframe?.contentWindow) {
-      return;
-    }
-
-    iframe.contentWindow.postMessage(
-      JSON.stringify({
-        event: "command",
-        func,
-        args: [],
-      }),
+    iframeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ event: "command", func, args: [] }),
       "https://www.youtube.com"
     );
   };
 
+  // Sync play/pause and mute state to iframe
   useEffect(() => {
-    setIsReady(false);
-  }, [videoSrc]);
-
-  useEffect(() => {
-    if (!isReady) {
-      return;
-    }
-
-    if (isMuted) {
-      postCommand("mute");
-    } else {
-      postCommand("unMute");
-    }
-
-    if (isPlaying) {
-      postCommand("playVideo");
-    } else {
-      postCommand("pauseVideo");
-    }
-  }, [isMuted, isPlaying, isReady]);
+    postCommand(isMuted ? "mute" : "unMute");
+    postCommand(isPlaying ? "playVideo" : "pauseVideo");
+  }, [isMuted, isPlaying]);
 
   if (!videoId) {
     return <span>Invalid YouTube URL</span>;
@@ -108,7 +77,6 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
     >
       <iframe
         ref={iframeRef}
-        onLoad={() => setIsReady(true)}
         title="YouTube player viewport"
         src={videoSrc}
         allow="autoplay; encrypted-media; picture-in-picture"
@@ -119,8 +87,22 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
           left: 0,
           width: "100%",
           height: "100%",
+          border: "none",
         }}
       />
+
+      {/* Intercept center pointer events so clicks never reach the iframe */}
+      <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        top: "15%",
+        left: "15%",
+        width: "70%",
+        height: "70%",
+        zIndex: 1,
+      }}
+    />
     </div>
   );
 };
