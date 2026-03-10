@@ -44,6 +44,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
       iv_load_policy: "3",
       modestbranding: "1",
       playsinline: "1",
+      showinfo: "0",
       rel: "0",
       origin,
     });

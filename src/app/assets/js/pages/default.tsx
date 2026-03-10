@@ -41,23 +41,32 @@ const DefaultPage: React.FC = () => {
                     onDecline={handleDeclineAutoplay}
                 />
             )}
-            <section className="phx-hero">
-                <h1>Welcome to Phoenix with TypeScript and React!</h1>
-                <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-                    <YoutubeViewport
-                        url="https://www.youtube.com/watch?v=insM7oUYNOE"
-                        autoplayEnabled={autoplayEnabled}
+            <div className="flex flex-col h-screen">
+                {/* Row 1: Viewport */}
+                <div className="flex justify-center px-4 pt-4">
+                    <div className="w-full max-w-[600px]">
+                        <YoutubeViewport
+                            url="https://www.youtube.com/watch?v=insM7oUYNOE"
+                            autoplayEnabled={autoplayEnabled}
+                            isPlaying={isPlaying}
+                            isMuted={isMuted}
+                        />
+                    </div>
+                </div>
+
+                {/* Row 2: Spacer */}
+                <div className="flex-1" />
+
+                {/* Row 3: Toolbar pinned to bottom */}
+                <div className="w-full">
+                    <PlayerToolbar
                         isPlaying={isPlaying}
                         isMuted={isMuted}
+                        onTogglePlay={handleTogglePlay}
+                        onToggleMute={handleToggleMute}
                     />
                 </div>
-            </section>
-            <PlayerToolbar
-                isPlaying={isPlaying}
-                isMuted={isMuted}
-                onTogglePlay={handleTogglePlay}
-                onToggleMute={handleToggleMute}
-            />
+            </div>
         </>
     );
 };

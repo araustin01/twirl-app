@@ -1,4 +1,7 @@
 import React from "react";
+import { ButtonGroup } from "@/lib/shadcn/ui/button-group"
+import { Button } from "@/lib/shadcn/ui/button";
+import {Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 interface PlayerToolbarProps {
   isPlaying: boolean;
@@ -16,48 +19,21 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   return (
     <div
       style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
         display: "flex",
         justifyContent: "center",
-        gap: "12px",
-        padding: "12px 16px",
-        backgroundColor: "rgba(10, 10, 10, 0.88)",
-        borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+        padding: "6px",
+        backgroundColor: "rgb(177, 177, 177)",
+        borderTop: "1px solid rgb(213, 213, 213)",
       }}
     >
-      <button
-        onClick={onTogglePlay}
-        style={{
-          border: "none",
-          borderRadius: "6px",
-          padding: "8px 14px",
-          backgroundColor: "#2f9e44",
-          color: "#fff",
-          cursor: "pointer",
-          minWidth: "92px",
-        }}
-      >
-        {isPlaying ? "Pause" : "Play"}
-      </button>
-
-      <button
-        onClick={onToggleMute}
-        style={{
-          border: "none",
-          borderRadius: "6px",
-          padding: "8px 14px",
-          backgroundColor: "#1c7ed6",
-          color: "#fff",
-          cursor: "pointer",
-          minWidth: "92px",
-        }}
-      >
-        {isMuted ? "Unmute" : "Mute"}
-      </button>
+      <ButtonGroup>
+        <Button  onClick={onTogglePlay} size="icon">
+          {isPlaying ? <Pause /> : <Play />}
+        </Button>
+        <Button onClick={onToggleMute} size="icon">
+          {isMuted ? <VolumeX /> : <Volume2 />}
+        </Button>
+      </ButtonGroup>
     </div>
   );
 };

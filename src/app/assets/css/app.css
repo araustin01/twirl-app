@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "./components/*";
+@import "./components/youtube-viewport.css";
 
 @layer base {
   :root {
@@ -193,4 +193,11 @@
 @keyframes fade-out-keys{
   0% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
