@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 
 interface YoutubeViewportProps {
   url: string;
   autoplayEnabled?: boolean;
   isPlaying: boolean;
   isMuted: boolean;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 const getYoutubeId = (input: string): string | null => {
@@ -21,6 +23,8 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   autoplayEnabled = false,
   isPlaying,
   isMuted,
+  className = "",
+  style = {},
 }) => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -28,6 +32,8 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
 
   const videoSrc = useMemo(() => {
     if (!videoId) return "";
+
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
 
     const params = new URLSearchParams({
       autoplay: autoplayEnabled ? "1" : "0",
@@ -39,7 +45,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
       modestbranding: "1",
       playsinline: "1",
       rel: "0",
-      origin: window.location.origin,
+      origin,
     });
 
     return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
@@ -63,46 +69,18 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   }
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        maxWidth: "960px",
-        margin: "0 auto",
-        paddingTop: "56.25%",
-        overflow: "hidden",
-        borderRadius: "10px",
-        backgroundColor: "#000",
-      }}
-    >
+    <div className={`youtube-viewport-container ${className}`} style={style}>
       <iframe
         ref={iframeRef}
+        className="youtube-viewport-iframe"
         title="YouTube player viewport"
         src={videoSrc}
         allow="autoplay; encrypted-media; picture-in-picture"
         allowFullScreen={false}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          border: "none",
-        }}
       />
 
       {/* Intercept center pointer events so clicks never reach the iframe */}
-      <div
-      aria-hidden="true"
-      style={{
-        position: "absolute",
-        top: "15%",
-        left: "15%",
-        width: "70%",
-        height: "70%",
-        zIndex: 1,
-      }}
-    />
+      <div aria-hidden="true" className="youtube-viewport-overlay" />
     </div>
   );
 };

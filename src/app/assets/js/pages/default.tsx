@@ -43,12 +43,14 @@ const DefaultPage: React.FC = () => {
             )}
             <section className="phx-hero">
                 <h1>Welcome to Phoenix with TypeScript and React!</h1>
-                <YoutubeViewport
-                    url="https://www.youtube.com/watch?v=insM7oUYNOE"
-                    autoplayEnabled={autoplayEnabled}
-                    isPlaying={isPlaying}
-                    isMuted={isMuted}
-                />
+                <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+                    <YoutubeViewport
+                        url="https://www.youtube.com/watch?v=insM7oUYNOE"
+                        autoplayEnabled={autoplayEnabled}
+                        isPlaying={isPlaying}
+                        isMuted={isMuted}
+                    />
+                </div>
             </section>
             <PlayerToolbar
                 isPlaying={isPlaying}
