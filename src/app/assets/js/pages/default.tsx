@@ -50,6 +50,7 @@ const DefaultPage: React.FC = () => {
                             autoplayEnabled={autoplayEnabled}
                             isPlaying={isPlaying}
                             isMuted={isMuted}
+                            onPlayingChange={setIsPlaying}
                         />
                     </div>
                 </div>
