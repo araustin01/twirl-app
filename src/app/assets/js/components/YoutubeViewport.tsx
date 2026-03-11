@@ -40,10 +40,10 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
       controls: "0",
       disablekb: "1",
       enablejsapi: "1",
+      cc_load_policy: "0",
       fs: "0",
       iv_load_policy: "3",
       modestbranding: "1",
-      playsinline: "1",
       showinfo: "0",
       rel: "0",
       origin,
@@ -79,9 +79,6 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
         allow="autoplay; encrypted-media; picture-in-picture"
         allowFullScreen={false}
       />
-
-      {/* Intercept center pointer events so clicks never reach the iframe */}
-      <div aria-hidden="true" className="youtube-viewport-overlay" />
     </div>
   );
 };

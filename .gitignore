@@ -35,4 +35,6 @@ node_modules/
 # Stale refactor artifacts.
 /app_umbrella/
 
+# IDE-specific files (e.g. from JetBrains IDEs).
+/.idea/
 
