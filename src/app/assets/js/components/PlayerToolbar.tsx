@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonGroup } from "@/lib/shadcn/ui/button-group"
 import { Button } from "@/lib/shadcn/ui/button";
-import {Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 interface PlayerToolbarProps {
   isPlaying: boolean;
@@ -27,7 +27,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
       }}
     >
       <ButtonGroup>
-        <Button  onClick={onTogglePlay} size="icon">
+        <Button onClick={onTogglePlay} size="icon">
           {isPlaying ? <Pause /> : <Play />}
         </Button>
         <Button onClick={onToggleMute} size="icon">
