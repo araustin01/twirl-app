@@ -95,7 +95,6 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
         playerVars: {
           autoplay: autoplayEnabled ? 1 : 0,
           controls: 0,
-          disablekb: 1,
           enablejsapi: 1,
           fs: 0,
           iv_load_policy: 3,
