@@ -27,10 +27,18 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
       }}
     >
       <ButtonGroup>
-        <Button onClick={onTogglePlay} size="icon">
+        <Button
+          onClick={onTogglePlay}
+          size="icon"
+          aria-label={isPlaying ? "Pause" : "Play"}
+        >
           {isPlaying ? <Pause /> : <Play />}
         </Button>
-        <Button onClick={onToggleMute} size="icon">
+        <Button
+          onClick={onToggleMute}
+          size="icon"
+          aria-label={isMuted ? "Unmute" : "Mute"}
+        >
           {isMuted ? <VolumeX /> : <Volume2 />}
         </Button>
       </ButtonGroup>
