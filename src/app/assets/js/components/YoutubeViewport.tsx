@@ -85,8 +85,11 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
     if (!videoId || !containerRef.current) return;
 
     let player: YT.Player;
+    let cancelled = false;
 
     loadYouTubeAPI().then((YT) => {
+      if (cancelled) return;
+
       // Destroy previous player instance if videoId changed
       playerRef.current?.destroy();
 
@@ -123,6 +126,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
     });
 
     return () => {
+      cancelled = true;
       player?.destroy();
       playerRef.current = null;
     };
