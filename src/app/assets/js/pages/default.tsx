@@ -8,20 +8,18 @@ import AutoplayModal from "../components/AutoplayModal";
 const DefaultPage: React.FC = () => {
     const [showModal, setShowModal] = useState(true);
     const [autoplayEnabled, setAutoplayEnabled] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(true);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
         setIsMuted(false);
-        setIsPlaying(true);
         setShowModal(false);
     };
 
     const handleDeclineAutoplay = () => {
         setAutoplayEnabled(false);
         setIsMuted(true);
-        setIsPlaying(true);
         setShowModal(false);
     };
 
