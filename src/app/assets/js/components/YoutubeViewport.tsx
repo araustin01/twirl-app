@@ -18,15 +18,41 @@ const getYoutubeId = (input: string): string | null => {
   return match && match[2].length === 11 ? match[2] : null;
 };
 
+// Singleton promise to ensure the YouTube IFrame API is loaded only once
+let youTubeAPIReadyPromise: Promise<typeof window.YT> | null = null;
+
 // Load the YouTube IFrame API script once globally
 function loadYouTubeAPI(): Promise<typeof window.YT> {
-  return new Promise((resolve) => {
-    if (window.YT?.Player) return resolve(window.YT);
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.head.appendChild(tag);
-    window.onYouTubeIframeAPIReady = () => resolve(window.YT);
+  // If the API is already available, resolve immediately.
+  if (window.YT?.Player) {
+    return Promise.resolve(window.YT);
+  }
+
+  // Reuse the same promise for concurrent callers while the API is loading.
+  if (youTubeAPIReadyPromise) {
+    return youTubeAPIReadyPromise;
+  }
+
+  youTubeAPIReadyPromise = new Promise((resolve) => {
+    // Avoid injecting multiple script tags.
+    let script = document.getElementById("youtube-iframe-api") as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement("script");
+      script.id = "youtube-iframe-api";
+      script.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(script);
+    }
+
+    const previousCallback = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof previousCallback === "function") {
+        previousCallback();
+      }
+      resolve(window.YT);
+    };
   });
+
+  return youTubeAPIReadyPromise;
 }
 
 const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
