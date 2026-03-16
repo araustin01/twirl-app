@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ButtonGroup } from "@/lib/shadcn/ui/button-group"
 import { Button } from "@/lib/shadcn/ui/button";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
@@ -21,6 +21,8 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   onToggleMute,
   onVolumeChange,
 }) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+
   return (
     <div
       style={{
@@ -48,22 +50,33 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             {isMuted ? <VolumeX /> : <Volume2 />}
           </Button>
         </ButtonGroup>
-        <Slider
-          min={0}
-          max={100}
-          step={5}
-          onValueChange={(values: number[]) => {
-            onVolumeChange(values[0]);
-          }}
-          className="
-          max-w-30 
-          [&_[data-slot=slider-track]]:h-1 
-          [&_[data-slot=slider-track]]:bg-gray-400 
-          [&_[data-slot=slider-range]]:bg-white 
-          [&_[data-slot=slider-thumb]]:border-white 
-          [&_[data-slot=slider-thumb]]:h-3 
-          [&_[data-slot=slider-thumb]]:w-3"
-        />
+        <div
+          className="relative w-30"
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+        >
+          {showTooltip && (
+            <div className="absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap">
+              Volume: {volume}%
+            </div>
+          )}
+          <Slider
+            min={0}
+            max={100}
+            value={volume}
+            step={5}
+            onValueChange={(value: number) => {
+              onVolumeChange(value);
+            }}
+            className="
+                [&_[data-slot=slider-track]]:h-1 
+                [&_[data-slot=slider-track]]:bg-gray-400 
+                [&_[data-slot=slider-range]]:bg-white 
+                [&_[data-slot=slider-thumb]]:border-white 
+                [&_[data-slot=slider-thumb]]:h-3 
+                [&_[data-slot=slider-thumb]]:w-3"
+          />
+        </div>
       </div>
     </div>
   );

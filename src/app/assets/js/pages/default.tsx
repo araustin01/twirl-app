@@ -10,7 +10,7 @@ const DefaultPage: React.FC = () => {
     const [autoplayEnabled, setAutoplayEnabled] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
-    const [volume, setVolume] = useState(100);
+    const [volume, setVolume] = useState(0);
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
@@ -30,6 +30,7 @@ const DefaultPage: React.FC = () => {
 
     const handleToggleMute = () => {
         setIsMuted((prev) => !prev);
+        setVolume((prev) => (isMuted ? 50 : 0)); // Set to 50 when unmuting, 0 when muting
     };
 
     const handleVolumeChange = (newVolume: number) => {
