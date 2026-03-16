@@ -4,7 +4,7 @@ interface YoutubeViewportProps {
   url: string;
   autoplayEnabled?: boolean;
   isPlaying: boolean;
-  isMuted: boolean;
+  volume: number;
   onPlayingChange?: (isPlaying: boolean) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -59,7 +59,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   url,
   autoplayEnabled = false,
   isPlaying,
-  isMuted,
+  volume,
   onPlayingChange,
   className = "",
   style = {},
@@ -70,12 +70,12 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
 
   // Keep latest props accessible inside YT callbacks without re-creating the player
   const isPlayingRef = useRef(isPlaying);
-  const isMutedRef = useRef(isMuted);
+  const volumeRef = useRef(volume);
   const onPlayingChangeRef = useRef(onPlayingChange);
 
   useEffect(() => { if (playerRef.current && autoplayEnabled) playerRef.current.playVideo(); }, [autoplayEnabled]);
   useEffect(() => { isPlayingRef.current = isPlaying; }, [isPlaying]);
-  useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
+  useEffect(() => { volumeRef.current = volume; }, [volume]);
   useEffect(() => { onPlayingChangeRef.current = onPlayingChange; }, [onPlayingChange]);
 
   const videoId = useMemo(() => getYoutubeId(url), [url]);
@@ -109,7 +109,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
           onReady: (e) => {
             playerRef.current = e.target;
             // Sync initial state
-            isMutedRef.current ? e.target.mute() : e.target.unMute();
+            e.target.setVolume(volumeRef.current);
             autoplayEnabled ? e.target.playVideo() : e.target.pauseVideo();
           },
           onStateChange: (e) => {
@@ -132,7 +132,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
     };
   }, [videoId]); // only re-create when video changes, not on every prop change
 
-  // Sync play/pause and mute without re-creating the player
+  // Sync play/pause and adjust volume without re-creating the player
   useEffect(() => {
     const p = playerRef.current;
     if (!p) return;
@@ -142,8 +142,9 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   useEffect(() => {
     const p = playerRef.current;
     if (!p) return;
-    isMuted ? p.mute() : p.unMute();
-  }, [isMuted]);
+    p.setVolume(volumeRef.current);
+    console.log("Volume:", p.getVolume());
+  }, [volume]);
 
   if (!videoId) return <span>Invalid YouTube URL</span>;
 

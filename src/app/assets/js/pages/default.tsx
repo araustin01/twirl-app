@@ -58,7 +58,7 @@ const DefaultPage: React.FC = () => {
                             url="https://www.youtube.com/watch?v=insM7oUYNOE"
                             autoplayEnabled={autoplayEnabled}
                             isPlaying={isPlaying}
-                            isMuted={isMuted}
+                            volume={volume}
                             onPlayingChange={setIsPlaying}
                         />
                     </div>
