@@ -10,6 +10,7 @@ const DefaultPage: React.FC = () => {
     const [autoplayEnabled, setAutoplayEnabled] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
+    const [volume, setVolume] = useState(100);
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
@@ -29,6 +30,15 @@ const DefaultPage: React.FC = () => {
 
     const handleToggleMute = () => {
         setIsMuted((prev) => !prev);
+    };
+
+    const handleVolumeChange = (newVolume: number) => {
+        setVolume(newVolume);
+        if (newVolume > 0 && isMuted) {
+            setIsMuted(false);
+        } else if (newVolume === 0) {
+            setIsMuted(true);
+        }
     };
 
     return (
@@ -61,8 +71,10 @@ const DefaultPage: React.FC = () => {
                     <PlayerToolbar
                         isPlaying={isPlaying}
                         isMuted={isMuted}
+                        volume={volume}
                         onTogglePlay={handleTogglePlay}
                         onToggleMute={handleToggleMute}
+                        onVolumeChange={handleVolumeChange}
                     />
                 </div>
             </div>
