@@ -19,6 +19,7 @@ const DefaultPage: React.FC = () => {
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
         setIsMuted(false);
+        setVolume(50); // Set to a reasonable default volume
         setShowModal(false);
     };
 
