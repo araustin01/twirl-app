@@ -11,6 +11,10 @@ const DefaultPage: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
     const [volume, setVolume] = useState(0);
+    // Metadata state
+    const [videoTitle, setVideoTitle] = useState<string>("");
+    const [videoDuration, setVideoDuration] = useState<number>(0);
+    const [videoCurrentTime, setVideoCurrentTime] = useState<number>(0);
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
@@ -42,6 +46,13 @@ const DefaultPage: React.FC = () => {
         }
     };
 
+    // Handler to receive metadata from YoutubeViewport
+    const handleMetadataUpdate = (meta: { title: string; duration: number; currentTime: number }) => {
+        setVideoTitle(meta.title);
+        setVideoDuration(meta.duration);
+        setVideoCurrentTime(meta.currentTime);
+    };
+
     return (
         <>
             {showModal && (
@@ -60,6 +71,7 @@ const DefaultPage: React.FC = () => {
                             isPlaying={isPlaying}
                             volume={volume}
                             onPlayingChange={setIsPlaying}
+                            onMetadataUpdate={handleMetadataUpdate}
                         />
                     </div>
                 </div>
@@ -76,6 +88,9 @@ const DefaultPage: React.FC = () => {
                         onTogglePlay={handleTogglePlay}
                         onToggleMute={handleToggleMute}
                         onVolumeChange={handleVolumeChange}
+                        title={videoTitle}
+                        duration={videoDuration}
+                        currentTime={videoCurrentTime}
                     />
                 </div>
             </div>

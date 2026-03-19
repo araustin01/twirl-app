@@ -6,6 +6,7 @@ interface YoutubeViewportProps {
   isPlaying: boolean;
   volume: number;
   onPlayingChange?: (isPlaying: boolean) => void;
+  onMetadataUpdate?: (meta: { title: string; duration: number; currentTime: number }) => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -61,6 +62,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   isPlaying,
   volume,
   onPlayingChange,
+  onMetadataUpdate,
   className = "",
   style = {},
 }) => {
@@ -72,11 +74,13 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   const isPlayingRef = useRef(isPlaying);
   const volumeRef = useRef(volume);
   const onPlayingChangeRef = useRef(onPlayingChange);
+  const onMetadataUpdateRef = useRef(onMetadataUpdate);
 
   useEffect(() => { if (playerRef.current && autoplayEnabled) playerRef.current.playVideo(); }, [autoplayEnabled]);
   useEffect(() => { isPlayingRef.current = isPlaying; }, [isPlaying]);
   useEffect(() => { volumeRef.current = volume; }, [volume]);
   useEffect(() => { onPlayingChangeRef.current = onPlayingChange; }, [onPlayingChange]);
+  useEffect(() => { onMetadataUpdateRef.current = onMetadataUpdate; }, [onMetadataUpdate]);
 
   const videoId = useMemo(() => getYoutubeId(url), [url]);
 
@@ -97,6 +101,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
         videoId,
         playerVars: {
           autoplay: autoplayEnabled ? 1 : 0,
+          modestbranding: 1,
           controls: 0,
           enablejsapi: 1,
           fs: 0,
@@ -111,6 +116,13 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
             // Sync initial state
             e.target.setVolume(volumeRef.current);
             autoplayEnabled ? e.target.playVideo() : e.target.pauseVideo();
+            if (onMetadataUpdateRef.current) {
+              const title = e.target.getVideoData().title || "";
+              const duration = e.target.getDuration() || 0;
+              const currentTime = e.target.getCurrentTime() || 0;
+              onMetadataUpdateRef.current({ title, duration, currentTime });
+            }
+
           },
           onStateChange: (e) => {
             const state = e.target.getPlayerState();
