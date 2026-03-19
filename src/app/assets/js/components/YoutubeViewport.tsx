@@ -56,6 +56,14 @@ function loadYouTubeAPI(): Promise<typeof window.YT> {
   return youTubeAPIReadyPromise;
 }
 
+function updateMetadata(player: YT.Player, onMetadataUpdate?: (meta: { title: string; duration: number; currentTime: number }) => void) {
+  if (!onMetadataUpdate) return;
+  const title = player.getVideoData().title || "";
+  const duration = player.getDuration() || 0;
+  const currentTime = player.getCurrentTime() || 0;
+  onMetadataUpdate({ title, duration, currentTime });
+}
+
 const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   url,
   autoplayEnabled = false,
@@ -117,10 +125,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
             e.target.setVolume(volumeRef.current);
             autoplayEnabled ? e.target.playVideo() : e.target.pauseVideo();
             if (onMetadataUpdateRef.current) {
-              const title = e.target.getVideoData().title || "";
-              const duration = e.target.getDuration() || 0;
-              const currentTime = e.target.getCurrentTime() || 0;
-              onMetadataUpdateRef.current({ title, duration, currentTime });
+              updateMetadata(e.target, onMetadataUpdateRef.current);
             }
 
           },
@@ -130,6 +135,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
             if (state === YT.PlayerState.PAUSED || state === YT.PlayerState.ENDED) {
               onPlayingChangeRef.current?.(false);
             }
+            updateMetadata(e.target, onMetadataUpdateRef.current);
           },
         },
       });
