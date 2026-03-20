@@ -161,7 +161,6 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
     const p = playerRef.current;
     if (!p) return;
     p.setVolume(volumeRef.current);
-    console.log("Volume:", p.getVolume());
   }, [volume]);
 
   if (!videoId) return <span>Invalid YouTube URL</span>;
