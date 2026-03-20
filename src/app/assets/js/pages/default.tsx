@@ -9,7 +9,6 @@ const DefaultPage: React.FC = () => {
     const [showModal, setShowModal] = useState(true);
     const [autoplayEnabled, setAutoplayEnabled] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isMuted, setIsMuted] = useState(true);
     const [volume, setVolume] = useState(0);
     // Metadata state
     const [videoTitle, setVideoTitle] = useState<string>("");
@@ -18,33 +17,18 @@ const DefaultPage: React.FC = () => {
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
-        setIsMuted(false);
         setVolume(50); // Set to a reasonable default volume
         setShowModal(false);
     };
 
     const handleDeclineAutoplay = () => {
         setAutoplayEnabled(false);
-        setIsMuted(true);
+        setVolume(0); // Mute if autoplay is declined
         setShowModal(false);
     };
 
     const handleTogglePlay = () => {
         setIsPlaying((prev) => !prev);
-    };
-
-    const handleToggleMute = () => {
-        setIsMuted((prev) => !prev);
-        setVolume((prev) => (isMuted ? 50 : 0)); // Set to 50 when unmuting, 0 when muting
-    };
-
-    const handleVolumeChange = (newVolume: number) => {
-        setVolume(newVolume);
-        if (newVolume > 0 && isMuted) {
-            setIsMuted(false);
-        } else if (newVolume === 0) {
-            setIsMuted(true);
-        }
     };
 
     // Handler to receive metadata from YoutubeViewport
@@ -84,11 +68,10 @@ const DefaultPage: React.FC = () => {
                 <div className="w-full">
                     <PlayerToolbar
                         isPlaying={isPlaying}
-                        isMuted={isMuted}
                         volume={volume}
                         onTogglePlay={handleTogglePlay}
-                        onToggleMute={handleToggleMute}
-                        onVolumeChange={handleVolumeChange}
+                        onToggleMute={() => volume > 0 ? setVolume(0) : setVolume(50)}
+                        onVolumeChange={(newVolume) => setVolume(newVolume)}
                         title={videoTitle}
                         duration={videoDuration}
                         currentTime={videoCurrentTime}

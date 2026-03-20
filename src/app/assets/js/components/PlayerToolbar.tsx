@@ -6,7 +6,6 @@ import { Slider } from "@/lib/shadcn/ui/slider";
 
 interface PlayerToolbarProps {
   isPlaying: boolean;
-  isMuted: boolean;
   volume: number;
   onTogglePlay: () => void;
   onToggleMute: () => void;
@@ -18,7 +17,6 @@ interface PlayerToolbarProps {
 
 const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   isPlaying,
-  isMuted,
   volume,
   onTogglePlay,
   onToggleMute,
@@ -108,9 +106,9 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             <Button
               onClick={onToggleMute}
               size="icon"
-              aria-label={isMuted ? "Unmute" : "Mute"}
+              aria-label={volume === 0 ? "Unmute" : "Mute"}
             >
-              {isMuted ? <VolumeX /> : <Volume2 />}
+              {volume === 0 ? <VolumeX /> : <Volume2 />}
             </Button>
           </ButtonGroup>
           <div
