@@ -45,9 +45,9 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
           return prev;
         }
 
-        return prev + 1;
+        return prev + (1 / 10); // Increment by 0.1s for smoother progress
       });
-    }, 1000);
+    }, 1000 / 10); // Update every 0.1s for smoother progress
 
     return () => clearInterval(interval);
   }, [isPlaying, duration]);
@@ -62,12 +62,12 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   };
 
   return (
-    <div className="border-t-[6px] border-[#2D2460] bg-[#0D0B1A] px-4 py-4">
+    <div className="border-t-[6px] border-[#2D2460] bg-[#0D0B1A] px-4 py-2.5">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-6 sm:flex-row">
         {/* Track info section */}
-        <div className="flex w-full max-w-[20rem] min-w-0 flex-col items-start justify-center">
+        <div className="flex w-full max-w-[30rem] min-w-0 flex-col items-start justify-center">
           {title && (
-            <div className="mb-1 w-full truncate text-left text-base font-semibold text-[#F0E8FF]">
+            <div className="mb-1 w-full truncate text-left text-base text-[#F0E8FF]">
               {title}
             </div>
           )}
@@ -75,7 +75,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             <div className="flex w-full items-center gap-2">
               {/* Progress slider (non-interactive) */}
               <div className="relative flex-1">
-                <div className="h-1.5 overflow-hidden rounded bg-[#222]">
+                <div className="h-1 overflow-hidden rounded bg-[#1A1535]">
                   <div
                     style={{
                       width: `${progress * 100}%`,
@@ -125,17 +125,17 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
               min={0}
               max={100}
               value={volume}
-              step={5}
+              step={1}
               onValueChange={(value: number) => {
                 onVolumeChange(value);
               }}
               className="
-                  [&_[data-slot=slider-track]]:h-1 
-                  [&_[data-slot=slider-track]]:bg-gray-400 
-                  [&_[data-slot=slider-range]]:bg-white 
-                  [&_[data-slot=slider-thumb]]:border-white 
+                  [&_[data-slot=slider-track]]:h-1.5 
+                  [&_[data-slot=slider-track]]:bg-[#2D2460]
+                  [&_[data-slot=slider-range]]:bg-[#9B7FFF]
+                  [&_[data-slot=slider-thumb]]:border-white
                   [&_[data-slot=slider-thumb]]:h-3 
-                  [&_[data-slot=slider-thumb]]:w-3"
+                  [&_[data-slot=slider-thumb]]:w-2"
             />
           </div>
         </div>
