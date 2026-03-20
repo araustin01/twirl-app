@@ -39,16 +39,20 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
 
   React.useEffect(() => {
     if (!isPlaying || !duration) return;
-    if (localTime >= duration) return;
+
     const interval = setInterval(() => {
       setLocalTime((prev) => {
-        if (!isPlaying) return prev;
-        if (prev >= duration) return prev;
+        if (prev >= duration) {
+          clearInterval(interval);
+          return prev;
+        }
+
         return prev + 1;
       });
     }, 1000);
+
     return () => clearInterval(interval);
-  }, [isPlaying, duration, localTime]);
+  }, [isPlaying, duration]);
 
   // Calculate progress and time left
   const progress = duration ? Math.min(localTime / duration, 1) : 0;
