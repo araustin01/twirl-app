@@ -63,14 +63,14 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
     <div className="border-t-[6px] border-[#2D2460] bg-[#0D0B1A] px-4 py-4">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-6 sm:flex-row">
         {/* Track info section */}
-        <div className="flex w-full max-w-[320px] min-w-0 flex-col items-start justify-center">
+        <div className="flex w-full max-w-[20rem] min-w-0 flex-col items-start justify-center">
           {title && (
-            <div className="mb-1 w-full max-w-[320px] truncate text-left text-base font-semibold text-[#F0E8FF]">
+            <div className="mb-1 w-full truncate text-left text-base font-semibold text-[#F0E8FF]">
               {title}
             </div>
           )}
           {duration && currentTime !== undefined && (
-            <div className="flex w-full max-w-[320px] items-center gap-2">
+            <div className="flex w-full items-center gap-2">
               {/* Progress slider (non-interactive) */}
               <div className="relative flex-1">
                 <div className="h-1.5 overflow-hidden rounded bg-[#222]">
@@ -110,7 +110,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             </Button>
           </ButtonGroup>
           <div
-            className="relative w-30"
+            className="relative w-[7.5rem]"
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
           >
