@@ -4,8 +4,9 @@ interface YoutubeViewportProps {
   url: string;
   autoplayEnabled?: boolean;
   isPlaying: boolean;
-  isMuted: boolean;
+  volume: number;
   onPlayingChange?: (isPlaying: boolean) => void;
+  onMetadataUpdate?: (meta: { title: string; duration: number; currentTime: number }) => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -55,12 +56,21 @@ function loadYouTubeAPI(): Promise<typeof window.YT> {
   return youTubeAPIReadyPromise;
 }
 
+function updateMetadata(player: YT.Player, onMetadataUpdate?: (meta: { title: string; duration: number; currentTime: number }) => void) {
+  if (!onMetadataUpdate) return;
+  const title = player.getVideoData().title || "";
+  const duration = player.getDuration() || 0;
+  const currentTime = player.getCurrentTime() || 0;
+  onMetadataUpdate({ title, duration, currentTime });
+}
+
 const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   url,
   autoplayEnabled = false,
   isPlaying,
-  isMuted,
+  volume,
   onPlayingChange,
+  onMetadataUpdate,
   className = "",
   style = {},
 }) => {
@@ -70,13 +80,15 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
 
   // Keep latest props accessible inside YT callbacks without re-creating the player
   const isPlayingRef = useRef(isPlaying);
-  const isMutedRef = useRef(isMuted);
+  const volumeRef = useRef(volume);
   const onPlayingChangeRef = useRef(onPlayingChange);
+  const onMetadataUpdateRef = useRef(onMetadataUpdate);
 
   useEffect(() => { if (playerRef.current && autoplayEnabled) playerRef.current.playVideo(); }, [autoplayEnabled]);
   useEffect(() => { isPlayingRef.current = isPlaying; }, [isPlaying]);
-  useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
+  useEffect(() => { volumeRef.current = volume; }, [volume]);
   useEffect(() => { onPlayingChangeRef.current = onPlayingChange; }, [onPlayingChange]);
+  useEffect(() => { onMetadataUpdateRef.current = onMetadataUpdate; }, [onMetadataUpdate]);
 
   const videoId = useMemo(() => getYoutubeId(url), [url]);
 
@@ -97,6 +109,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
         videoId,
         playerVars: {
           autoplay: autoplayEnabled ? 1 : 0,
+          modestbranding: 1,
           controls: 0,
           enablejsapi: 1,
           fs: 0,
@@ -109,8 +122,12 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
           onReady: (e) => {
             playerRef.current = e.target;
             // Sync initial state
-            isMutedRef.current ? e.target.mute() : e.target.unMute();
+            e.target.setVolume(volumeRef.current);
             autoplayEnabled ? e.target.playVideo() : e.target.pauseVideo();
+            if (onMetadataUpdateRef.current) {
+              updateMetadata(e.target, onMetadataUpdateRef.current);
+            }
+
           },
           onStateChange: (e) => {
             const state = e.target.getPlayerState();
@@ -118,6 +135,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
             if (state === YT.PlayerState.PAUSED || state === YT.PlayerState.ENDED) {
               onPlayingChangeRef.current?.(false);
             }
+            updateMetadata(e.target, onMetadataUpdateRef.current);
           },
         },
       });
@@ -132,7 +150,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
     };
   }, [videoId]); // only re-create when video changes, not on every prop change
 
-  // Sync play/pause and mute without re-creating the player
+  // Sync play/pause and adjust volume without re-creating the player
   useEffect(() => {
     const p = playerRef.current;
     if (!p) return;
@@ -142,8 +160,8 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   useEffect(() => {
     const p = playerRef.current;
     if (!p) return;
-    isMuted ? p.mute() : p.unMute();
-  }, [isMuted]);
+    p.setVolume(volumeRef.current);
+  }, [volume]);
 
   if (!videoId) return <span>Invalid YouTube URL</span>;
 

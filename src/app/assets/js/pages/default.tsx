@@ -9,17 +9,21 @@ const DefaultPage: React.FC = () => {
     const [showModal, setShowModal] = useState(true);
     const [autoplayEnabled, setAutoplayEnabled] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isMuted, setIsMuted] = useState(true);
+    const [volume, setVolume] = useState(0);
+    // Metadata state
+    const [videoTitle, setVideoTitle] = useState<string>("");
+    const [videoDuration, setVideoDuration] = useState<number>(0);
+    const [videoCurrentTime, setVideoCurrentTime] = useState<number>(0);
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
-        setIsMuted(false);
+        setVolume(50); // Set to a reasonable default volume
         setShowModal(false);
     };
 
     const handleDeclineAutoplay = () => {
         setAutoplayEnabled(false);
-        setIsMuted(true);
+        setVolume(0); // Mute if autoplay is declined
         setShowModal(false);
     };
 
@@ -27,8 +31,11 @@ const DefaultPage: React.FC = () => {
         setIsPlaying((prev) => !prev);
     };
 
-    const handleToggleMute = () => {
-        setIsMuted((prev) => !prev);
+    // Handler to receive metadata from YoutubeViewport
+    const handleMetadataUpdate = (meta: { title: string; duration: number; currentTime: number }) => {
+        setVideoTitle(meta.title);
+        setVideoDuration(meta.duration);
+        setVideoCurrentTime(meta.currentTime);
     };
 
     return (
@@ -47,8 +54,9 @@ const DefaultPage: React.FC = () => {
                             url="https://www.youtube.com/watch?v=insM7oUYNOE"
                             autoplayEnabled={autoplayEnabled}
                             isPlaying={isPlaying}
-                            isMuted={isMuted}
+                            volume={volume}
                             onPlayingChange={setIsPlaying}
+                            onMetadataUpdate={handleMetadataUpdate}
                         />
                     </div>
                 </div>
@@ -60,9 +68,13 @@ const DefaultPage: React.FC = () => {
                 <div className="w-full">
                     <PlayerToolbar
                         isPlaying={isPlaying}
-                        isMuted={isMuted}
+                        volume={volume}
                         onTogglePlay={handleTogglePlay}
-                        onToggleMute={handleToggleMute}
+                        onToggleMute={() => volume > 0 ? setVolume(0) : setVolume(50)}
+                        onVolumeChange={(newVolume) => setVolume(newVolume)}
+                        title={videoTitle}
+                        duration={videoDuration}
+                        currentTime={videoCurrentTime}
                     />
                 </div>
             </div>
