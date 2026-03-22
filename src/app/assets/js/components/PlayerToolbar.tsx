@@ -62,12 +62,12 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   };
 
   return (
-    <div className="border-t-[6px] border-[#2D2460] bg-[#0D0B1A] px-4 py-2.5">
+    <div className="border-b-[6px] border-[#2D2460] bg-[#0D0B1A] px-4 py-2">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-6 sm:flex-row">
         {/* Track info section */}
-        <div className="flex w-full max-w-[30rem] min-w-0 flex-col items-start justify-center">
+        <div className="flex w-full max-w-[20rem] min-w-0 flex-col items-start justify-center">
           {title && (
-            <div className="mb-1 w-full truncate text-left text-base text-[#F0E8FF]">
+            <div className="w-full truncate text-left text-base text-[#F0E8FF]">
               {title}
             </div>
           )}
@@ -98,14 +98,14 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
           <ButtonGroup>
             <Button
               onClick={onTogglePlay}
-              size="icon"
+              size="icon-sm"
               aria-label={isPlaying ? "Pause" : "Play"}
             >
               {isPlaying ? <Pause /> : <Play />}
             </Button>
             <Button
               onClick={onToggleMute}
-              size="icon"
+              size="icon-sm"
               aria-label={volume === 0 ? "Unmute" : "Mute"}
             >
               {volume === 0 ? <VolumeX /> : <Volume2 />}
@@ -117,7 +117,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             onMouseLeave={() => setShowTooltip(false)}
           >
             {showTooltip && (
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap">
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 rounded bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap">
                 Volume: {volume}%
               </div>
             )}

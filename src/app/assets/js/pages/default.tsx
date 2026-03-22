@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import YoutubeViewport from "../components/YoutubeViewport";
 import PlayerToolbar from "../components/PlayerToolbar";
 import AutoplayModal from "../components/AutoplayModal";
+import MusicToolbar from "@/components/MusicToolbar";
 
 
 const DefaultPage: React.FC = () => {
@@ -47,9 +48,21 @@ const DefaultPage: React.FC = () => {
                 />
             )}
             <div className="flex flex-col h-screen">
-                {/* Row 1: Viewport */}
-                <div className="flex justify-center px-4 pt-4">
-                    <div className="w-full max-w-[600px]">
+                <div className="w-full">
+                    <PlayerToolbar
+                        isPlaying={isPlaying}
+                        volume={volume}
+                        onTogglePlay={handleTogglePlay}
+                        onToggleMute={() => volume > 0 ? setVolume(0) : setVolume(50)}
+                        onVolumeChange={(newVolume) => setVolume(newVolume)}
+                        title={videoTitle}
+                        duration={videoDuration}
+                        currentTime={videoCurrentTime}
+                    />
+                </div>
+
+                <div className="flex justify-center px-4 pt-1">
+                    <div className="w-full max-w-[500px]">
                         <YoutubeViewport
                             url="https://www.youtube.com/watch?v=insM7oUYNOE"
                             autoplayEnabled={autoplayEnabled}
@@ -61,12 +74,11 @@ const DefaultPage: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Row 2: Spacer */}
+                {/* Spacer */}
                 <div className="flex-1" />
 
-                {/* Row 3: Toolbar pinned to bottom */}
                 <div className="w-full">
-                    <PlayerToolbar
+                    <MusicToolbar
                         isPlaying={isPlaying}
                         volume={volume}
                         onTogglePlay={handleTogglePlay}
