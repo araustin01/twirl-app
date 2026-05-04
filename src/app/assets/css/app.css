@@ -4,76 +4,60 @@
 
 @layer base {
   :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.985 0 0);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    /* Universal color definitions */
+    --color-space: #0D0B1A;
+    --color-void: #1A1535;
+    --color-stage: #2D2460;
+    --color-electric: #6B4FD8;
+    --color-violet: #9B7FFF;
+    --color-laser: #39FF9C;
+    --color-ghost: #F0E8FF;
+
+    /* Main theme variables using universal colors */
+    --background: var(--color-space);
+    --foreground: var(--color-ghost);
+    --card: var(--color-void);
+    --card-foreground: var(--color-ghost);
+    --popover: var(--color-void);
+    --popover-foreground: var(--color-ghost);
+    --primary: var(--color-electric);
+    --primary-foreground: var(--color-ghost);
+    --secondary: var(--color-stage);
+    --secondary-foreground: var(--color-ghost);
+    --muted: var(--color-void);
+    --muted-foreground: var(--color-violet);
+    --accent: var(--color-laser);
+    --accent-foreground: var(--color-space);
+    --destructive: #FF4F4F;
+    --destructive-foreground: var(--color-ghost);
+    --border: var(--color-violet);
+    --input: var(--color-violet);
+    --ring: var(--color-electric);
     --radius: 0.625rem;
   }
   .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --destructive-foreground: oklch(0.985 0 0);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
+    --background: var(--color-void);
+    --foreground: var(--color-ghost);
+    --card: var(--color-space);
+    --card-foreground: var(--color-ghost);
+    --popover: var(--color-space);
+    --popover-foreground: var(--color-ghost);
+    --primary: var(--color-violet);
+    --primary-foreground: var(--color-space);
+    --secondary: var(--color-electric);
+    --secondary-foreground: var(--color-space);
+    --muted: var(--color-stage);
+    --muted-foreground: var(--color-laser);
+    --accent: var(--color-laser);
+    --accent-foreground: var(--color-space);
+    --destructive: #FF4F4F;
+    --destructive-foreground: var(--color-ghost);
+    --border: var(--color-violet);
+    --input: var(--color-violet);
+    --ring: var(--color-electric);
   }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-4xl: 2rem;
-}
 
 /* This file is for your main application CSS */
 
@@ -84,20 +68,21 @@
   border: 1px solid transparent;
   border-radius: 4px;
 }
+/* Alerts and form errors using theme colors */
 .alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  color: var(--color-electric);
+  background-color: var(--color-ghost);
+  border-color: var(--color-violet);
 }
 .alert-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
+  color: var(--color-laser);
+  background-color: var(--color-stage);
+  border-color: var(--color-laser);
 }
 .alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+  color: #FF4F4F;
+  background-color: var(--color-ghost);
+  border-color: var(--color-electric);
 }
 .alert p {
   margin-bottom: 0;
@@ -106,7 +91,7 @@
   display: none;
 }
 .invalid-feedback {
-  color: #a94442;
+  color: #FF4F4F;
   display: block;
   margin: -1rem 0 2rem;
 }
