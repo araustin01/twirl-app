@@ -130,12 +130,12 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
                 onVolumeChange(value);
               }}
               className="
-                  [data-slot=slider-track]:h-1.5
-                  [data-slot=slider-track]:bg-stage
-                  [data-slot=slider-range]:bg-violet
-                  [data-slot=slider-thumb]:border-white
-                  [data-slot=slider-thumb]:h-3
-                  [data-slot=slider-thumb]:w-2"
+                  [&_[data-slot=slider-track]]:h-1.5
+                  [&_[data-slot=slider-track]]:bg-stage
+                  [&_[data-slot=slider-range]]:bg-violet
+                  [&_[data-slot=slider-thumb]]:border-white
+                  [&_[data-slot=slider-thumb]]:h-3
+                  [&_[data-slot=slider-thumb]]:w-2"
             />
           </div>
         </div>
