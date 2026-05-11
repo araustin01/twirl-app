@@ -62,12 +62,12 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   };
 
   return (
-    <div className="border-t-[6px] border-[--color-stage] bg-[--color-space] px-4 py-2.5">
+    <div className="border-t-[6px] border-stage bg-space px-4 py-2.5">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-6 sm:flex-row">
         {/* Track info section */}
         <div className="flex w-full max-w-120 min-w-0 flex-col items-start justify-center">
           {title && (
-            <div className="mb-1 w-full truncate text-left text-base text-[--color-ghost]">
+            <div className="mb-1 w-full truncate text-left text-base text-ghost">
               {title}
             </div>
           )}
@@ -75,19 +75,19 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             <div className="flex w-full items-center gap-2">
               {/* Progress slider (non-interactive) */}
               <div className="relative flex-1">
-                <div className="h-1 overflow-hidden rounded bg-[--color-void]">
+                <div className="h-1 overflow-hidden rounded bg-void">
                   <div
+                    className="bg-laser"
                     style={{
                       width: `${progress * 100}%`,
                       height: "100%",
-                      background: "var(--color-laser)",
                       transition: "width 0.2s",
                     }}
                   />
                 </div>
               </div>
               {/* Time left */}
-              <div className="min-w-12 text-right text-sm text-[--color-ghost]">
+              <div className="min-w-12 text-right text-sm text-ghost">
                 -{formatTime(timeLeft)}
               </div>
             </div>
@@ -131,8 +131,8 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
               }}
               className="
                   [data-slot=slider-track]:h-1.5
-                  [data-slot=slider-track]:bg-[--color-stage]
-                  [data-slot=slider-range]:bg-[--color-violet]
+                  [data-slot=slider-track]:bg-stage
+                  [data-slot=slider-range]:bg-violet
                   [data-slot=slider-thumb]:border-white
                   [data-slot=slider-thumb]:h-3
                   [data-slot=slider-thumb]:w-2"
