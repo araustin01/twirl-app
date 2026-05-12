@@ -22,14 +22,14 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  /* Universal color definitions */
-  --color-space: var(--color-space);
-  --color-void: var(--color-void);
-  --color-stage: var(--color-stage);
-  --color-electric: var(--color-electric);
-  --color-violet: var(--color-violet);
-  --color-laser: var(--color-laser);
-  --color-ghost: var(--color-ghost);
+  /* Universal color definitions mapped from source variables */
+  --color-space: var(--space);
+  --color-void: var(--void);
+  --color-stage: var(--stage);
+  --color-electric: var(--electric);
+  --color-violet: var(--violet);
+  --color-laser: var(--laser);
+  --color-ghost: var(--ghost);
   /* Border radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -40,14 +40,14 @@
 
 @layer base {
   :root {
-    /* Universal color definitions */
-    --color-space: #0D0B1A;
-    --color-void: #1A1535;
-    --color-stage: #2D2460;
-    --color-electric: #6B4FD8;
-    --color-violet: #9B7FFF;
-    --color-laser: #39FF9C;
-    --color-ghost: #F0E8FF;
+    /* Universal color source variables */
+    --space: #0D0B1A;
+    --void: #1A1535;
+    --stage: #2D2460;
+    --electric: #6B4FD8;
+    --violet: #9B7FFF;
+    --laser: #39FF9C;
+    --ghost: #F0E8FF;
 
     /* Main theme variables using universal colors */
     --background: var(--color-space);
