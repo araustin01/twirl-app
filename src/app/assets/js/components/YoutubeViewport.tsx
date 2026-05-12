@@ -173,12 +173,4 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   );
 };
 
-// Extend window type for YT API globals
-declare global {
-  interface Window {
-    YT?: typeof YT;
-    onYouTubeIframeAPIReady?: () => void;
-  }
-}
-
 export default YoutubeViewport;
