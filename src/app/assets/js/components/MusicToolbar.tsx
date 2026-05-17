@@ -4,25 +4,11 @@ import { Button } from "@/lib/shadcn/ui/button";
 import { AudioLines, CircleChevronRight } from "lucide-react";
 
 interface MusicToolbarProps {
-    isPlaying: boolean;
-    volume: number;
-    onTogglePlay: () => void;
-    onToggleMute: () => void;
-    onVolumeChange: (volume: number) => void;
-    title?: string;
-    duration?: number; // seconds
-    currentTime?: number; // seconds
+    onTogglePanelBtn: () => void;
 }
 
 const MusicToolbar: React.FC<MusicToolbarProps> = ({
-    isPlaying,
-    volume,
-    onTogglePlay,
-    onToggleMute,
-    onVolumeChange,
-    title,
-    duration,
-    currentTime,
+    onTogglePanelBtn,
 }) => {
     return (
         <div className="border-t-[6px] text-ghost border-stage bg-space">
@@ -35,7 +21,7 @@ const MusicToolbar: React.FC<MusicToolbarProps> = ({
                     *:data-[slot=button]:px-4
                     *:data-[slot=button]:text-base
                     [&>[data-slot=button]_svg]:size-6">
-                        <Button variant="ghost" size="lg" className="rounded-none!">
+                        <Button variant="ghost" size="lg" className="rounded-none!" onClick={onTogglePanelBtn}>
                             <AudioLines />
                         </Button>
                         <Button variant="ghost" size="lg" className="rounded-none! flex-1 justify-start">

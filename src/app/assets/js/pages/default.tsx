@@ -10,13 +10,16 @@ import { Track } from "@base-ui/react/slider/index.parts";
 
 const DefaultPage: React.FC = () => {
     const [showModal, setShowModal] = useState(true);
+    const [showTrackPanel, setShowTrackPanel] = useState(false);
     const [autoplayEnabled, setAutoplayEnabled] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(0);
+
     // Metadata state
     const [videoTitle, setVideoTitle] = useState<string>("");
     const [videoDuration, setVideoDuration] = useState<number>(0);
     const [videoCurrentTime, setVideoCurrentTime] = useState<number>(0);
+
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
@@ -65,7 +68,7 @@ const DefaultPage: React.FC = () => {
 
                 <div className="relative flex-1 flex justify-center px-4 pt-1">
                     <div className="absolute inset-0 w-1/3">
-                        <TrackPanel />
+                        {showTrackPanel && <TrackPanel />}
                     </div>
                     <div className="relative z-10 w-full max-w-[500px]">
                         <YoutubeViewport
@@ -81,14 +84,7 @@ const DefaultPage: React.FC = () => {
 
                 <div className="w-full">
                     <MusicToolbar
-                        isPlaying={isPlaying}
-                        volume={volume}
-                        onTogglePlay={handleTogglePlay}
-                        onToggleMute={() => volume > 0 ? setVolume(0) : setVolume(50)}
-                        onVolumeChange={(newVolume) => setVolume(newVolume)}
-                        title={videoTitle}
-                        duration={videoDuration}
-                        currentTime={videoCurrentTime}
+                        onTogglePanelBtn={() => setShowTrackPanel((prev) => !prev)}
                     />
                 </div>
             </div>
