@@ -4,6 +4,8 @@ import YoutubeViewport from "../components/YoutubeViewport";
 import PlayerToolbar from "../components/PlayerToolbar";
 import AutoplayModal from "../components/AutoplayModal";
 import MusicToolbar from "@/components/MusicToolbar";
+import TrackPanel from "@/components/TrackPanel";
+import { Track } from "@base-ui/react/slider/index.parts";
 
 
 const DefaultPage: React.FC = () => {
@@ -61,8 +63,11 @@ const DefaultPage: React.FC = () => {
                     />
                 </div>
 
-                <div className="flex justify-center px-4 pt-1">
-                    <div className="w-full max-w-[500px]">
+                <div className="relative flex-1 flex justify-center px-4 pt-1">
+                    <div className="absolute inset-0 w-1/3">
+                        <TrackPanel />
+                    </div>
+                    <div className="relative z-10 w-full max-w-[500px]">
                         <YoutubeViewport
                             url="https://www.youtube.com/watch?v=insM7oUYNOE"
                             autoplayEnabled={autoplayEnabled}
@@ -73,9 +78,6 @@ const DefaultPage: React.FC = () => {
                         />
                     </div>
                 </div>
-
-                {/* Spacer */}
-                <div className="flex-1" />
 
                 <div className="w-full">
                     <MusicToolbar

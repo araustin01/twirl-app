@@ -62,7 +62,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   };
 
   return (
-    <div className="border-t-[6px] border-stage bg-space px-4 py-2.5">
+    <div className="border-b-[6px] border-stage bg-space px-4 py-2.5">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-6 sm:flex-row">
         {/* Track info section */}
         <div className="flex w-full max-w-[20rem] min-w-0 flex-col items-start justify-center">
