@@ -25,7 +25,7 @@ const MusicToolbar: React.FC<MusicToolbarProps> = ({
     currentTime,
 }) => {
     return (
-        <div className="border-t-[6px] text-[#F0E8FF] border-[#2D2460] bg-[#0D0B1A]">
+        <div className="border-t-[6px] text-ghost border-stage bg-space">
             <div className="flex h-full w-full">
                 <div className="flex w-full">
                     <ButtonGroup className="
@@ -35,10 +35,10 @@ const MusicToolbar: React.FC<MusicToolbarProps> = ({
                     *:data-[slot=button]:px-4
                     *:data-[slot=button]:text-base
                     [&>[data-slot=button]_svg]:size-6">
-                        <Button variant="ghost" size="lg" className="rounded-none! hover:bg-[#9B7FFF]">
+                        <Button variant="ghost" size="lg" className="rounded-none!">
                             <AudioLines />
                         </Button>
-                        <Button variant="ghost" size="lg" className="rounded-none! flex-1 justify-start hover:bg-[#9B7FFF]">
+                        <Button variant="ghost" size="lg" className="rounded-none! flex-1 justify-start">
                             <CircleChevronRight /> Add a song to play
                         </Button>
                     </ButtonGroup>
