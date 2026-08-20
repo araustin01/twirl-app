@@ -3,7 +3,6 @@ defmodule Core.Youtube do
   @youtube_search_url "https://www.googleapis.com/youtube/v3/search"
 
   def search(query, request_fun \\ &request/2) do
-    Logger.debug("Processing query: #{query}")
     with {:ok, api_key} <- api_key(),
          {:ok, body} <- request_fun.(query, api_key),
          {:ok, decoded} <- Jason.decode(body) do
@@ -20,7 +19,7 @@ defmodule Core.Youtube do
   end
 
   defp request(query, api_key) do
-    params = URI.encode_query(%{part: "snippet", q: query, type: "video", maxResults: 10, key: api_key})
+    params = URI.encode_query(%{part: "snippet", q: query <> " music video", type: "video", maxResults: 10, key: api_key})
 
     :httpc.request(:get, {String.to_charlist(@youtube_search_url <> "?" <> params), []}, [], [])
     |> case do

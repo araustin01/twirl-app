@@ -1,4 +1,5 @@
 defmodule App.YoutubeController do
+  require Logger
   use App, :controller
 
   def search(conn, %{"q" => query}) when byte_size(query) > 0 do

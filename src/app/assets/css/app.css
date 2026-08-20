@@ -93,6 +93,11 @@
     --input: var(--color-violet);
     --ring: var(--color-electric);
   }
+
+  * {
+    scrollbar-color: var(--color-electric) var(--color-space);
+
+  }
 }
 
 
