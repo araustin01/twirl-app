@@ -1,4 +1,7 @@
 defmodule Core.Youtube do
+  @moduledoc """
+  A module for interacting with the YouTube API.
+  """
   require Logger
   @youtube_search_url "https://www.googleapis.com/youtube/v3/search"
 
