@@ -37,4 +37,4 @@ jobs:
           mix deps.get
 
       - name: Run Elixir tests
-        run: make test-elixir
+        run: make test
