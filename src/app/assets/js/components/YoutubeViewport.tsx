@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from "react";
 
 interface YoutubeViewportProps {
-  url: string;
+  id: string;
   autoplayEnabled?: boolean;
   isPlaying: boolean;
   volume: number;
@@ -65,7 +65,7 @@ function updateMetadata(player: YT.Player, onMetadataUpdate?: (meta: { title: st
 }
 
 const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
-  url,
+  id,
   autoplayEnabled = false,
   isPlaying,
   volume,
@@ -90,7 +90,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   useEffect(() => { onPlayingChangeRef.current = onPlayingChange; }, [onPlayingChange]);
   useEffect(() => { onMetadataUpdateRef.current = onMetadataUpdate; }, [onMetadataUpdate]);
 
-  const videoId = useMemo(() => getYoutubeId(url), [url]);
+  const videoId = useMemo(() => getYoutubeId(`https://www.youtube.com/watch?v=${id}`), [id]);
 
   // Boot or re-create the player when videoId changes
   useEffect(() => {

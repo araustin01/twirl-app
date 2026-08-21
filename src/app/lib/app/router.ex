@@ -25,6 +25,10 @@ defmodule App.Router do
     pipe_through :api
 
     get "/youtube/search", YoutubeController, :search
+
+    get "/queue", QueueController, :index
+    post "/queue", QueueController, :add
+    # TODO: add a delete path
   end
 
   # Enables LiveDashboard only for development

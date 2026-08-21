@@ -16,10 +16,16 @@ const DefaultPage: React.FC = () => {
     const [volume, setVolume] = useState(0);
 
     // Metadata state
+    const [videoID, setVideoID] = useState<string>("insM7oUYNOE");
     const [videoTitle, setVideoTitle] = useState<string>("");
     const [videoDuration, setVideoDuration] = useState<number>(0);
     const [videoCurrentTime, setVideoCurrentTime] = useState<number>(0);
 
+
+    const updateVideoID = (newVideoID: string) => {
+        setAutoplayEnabled(true);
+        setVideoID(newVideoID);
+    };
 
     const handleAcceptAutoplay = () => {
         setAutoplayEnabled(true);
@@ -68,11 +74,11 @@ const DefaultPage: React.FC = () => {
 
                 <div className="relative flex-1 flex justify-center px-4 pt-1">
                     <div className="absolute z-10 inset-0 max-w-[30em]">
-                        {showTrackPanel && <TrackPanel />}
+                        {showTrackPanel && <TrackPanel setVideoId={updateVideoID} />}
                     </div>
-                    <div className="relative w-full max-w-[500px]">
+                    <div className="relative w-full max-w-125" onClick={() => setShowTrackPanel(false)}>
                         <YoutubeViewport
-                            url="https://www.youtube.com/watch?v=insM7oUYNOE"
+                            id={videoID}
                             autoplayEnabled={autoplayEnabled}
                             isPlaying={isPlaying}
                             volume={volume}
@@ -88,6 +94,7 @@ const DefaultPage: React.FC = () => {
                     />
                 </div>
             </div>
+
         </>
     );
 };
