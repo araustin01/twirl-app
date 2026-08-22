@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import YoutubeViewport from '../components/YoutubeViewport';
-import PlayerToolbar from '../components/PlayerToolbar';
+import TopBar from '@/components/TopBar';
 import AutoplayModal from '../components/AutoplayModal';
-import MusicToolbar from '@/components/MusicToolbar';
+import BottomBar from '@/components/BottomBar';
 import TrackPanel from '@/components/TrackPanel';
 
 const DefaultPage: React.FC = () => {
@@ -61,7 +61,7 @@ const DefaultPage: React.FC = () => {
       )}
       <div className="flex flex-col h-screen">
         <div className="w-full">
-          <PlayerToolbar
+          <TopBar
             isPlaying={isPlaying}
             volume={volume}
             onTogglePlay={handleTogglePlay}
@@ -93,7 +93,7 @@ const DefaultPage: React.FC = () => {
         </div>
 
         <div className="w-full">
-          <MusicToolbar
+          <BottomBar
             onTogglePanelBtn={() => setShowTrackPanel((prev) => !prev)}
           />
         </div>

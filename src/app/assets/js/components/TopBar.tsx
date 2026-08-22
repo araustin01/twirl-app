@@ -4,7 +4,7 @@ import { Button } from '@/lib/shadcn/ui/button';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { Slider } from '@/lib/shadcn/ui/slider';
 
-interface PlayerToolbarProps {
+interface TopBarProps {
   isPlaying: boolean;
   volume: number;
   onTogglePlay: () => void;
@@ -15,7 +15,7 @@ interface PlayerToolbarProps {
   currentTime?: number; // seconds
 }
 
-const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
+const TopBar: React.FC<TopBarProps> = ({
   isPlaying,
   volume,
   onTogglePlay,
@@ -144,4 +144,4 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   );
 };
 
-export default PlayerToolbar;
+export default TopBar;

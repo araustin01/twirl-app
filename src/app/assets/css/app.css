@@ -93,10 +93,6 @@
     --input: var(--color-violet);
     --ring: var(--color-electric);
   }
-
-  * {
-    scrollbar-color: var(--color-electric) var(--color-space);
-  }
 }
 
 /* This file is for your main application CSS */
@@ -252,6 +248,11 @@
 }
 
 @layer base {
+
+  * {
+    scrollbar-color: var(--color-electric) var(--color-space);
+  }
+
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;

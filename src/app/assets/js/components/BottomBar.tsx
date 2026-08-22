@@ -3,11 +3,11 @@ import { ButtonGroup } from '@/lib/shadcn/ui/button-group';
 import { Button } from '@/lib/shadcn/ui/button';
 import { AudioLines, CircleChevronRight } from 'lucide-react';
 
-interface MusicToolbarProps {
+interface BottomBarProps {
   onTogglePanelBtn: () => void;
 }
 
-const MusicToolbar: React.FC<MusicToolbarProps> = ({ onTogglePanelBtn }) => {
+const BottomBar: React.FC<BottomBarProps> = ({ onTogglePanelBtn }) => {
   return (
     <div className="border-t-[6px] text-ghost border-stage bg-space">
       <div className="flex h-full w-full">
@@ -43,4 +43,4 @@ const MusicToolbar: React.FC<MusicToolbarProps> = ({ onTogglePanelBtn }) => {
   );
 };
 
-export default MusicToolbar;
+export default BottomBar;
