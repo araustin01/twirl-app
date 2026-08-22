@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "./components/youtube-viewport.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './components/youtube-viewport.css';
 
 @theme inline {
   --color-background: var(--background);
@@ -41,13 +41,13 @@
 @layer base {
   :root {
     /* Universal color source variables */
-    --space: #0D0B1A;
-    --void: #1A1535;
-    --stage: #2D2460;
-    --electric: #6B4FD8;
-    --violet: #9B7FFF;
-    --laser: #39FF9C;
-    --ghost: #F0E8FF;
+    --space: #0d0b1a;
+    --void: #1a1535;
+    --stage: #2d2460;
+    --electric: #6b4fd8;
+    --violet: #9b7fff;
+    --laser: #39ff9c;
+    --ghost: #f0e8ff;
 
     /* Main theme variables using universal colors */
     --background: var(--color-space);
@@ -64,7 +64,7 @@
     --muted-foreground: var(--color-violet);
     --accent: var(--color-laser);
     --accent-foreground: var(--color-space);
-    --destructive: #FF4F4F;
+    --destructive: #ff4f4f;
     --destructive-foreground: var(--color-ghost);
     --border: var(--color-violet);
     --input: var(--color-violet);
@@ -87,7 +87,7 @@
     --muted-foreground: var(--color-laser);
     --accent: var(--color-laser);
     --accent-foreground: var(--color-space);
-    --destructive: #FF4F4F;
+    --destructive: #ff4f4f;
     --destructive-foreground: var(--color-ghost);
     --border: var(--color-violet);
     --input: var(--color-violet);
@@ -96,10 +96,8 @@
 
   * {
     scrollbar-color: var(--color-electric) var(--color-space);
-
   }
 }
-
 
 /* This file is for your main application CSS */
 
@@ -125,7 +123,7 @@
 }
 
 .alert-danger {
-  color: #FF4F4F;
+  color: #ff4f4f;
   background-color: var(--color-ghost);
   border-color: var(--color-electric);
 }
@@ -139,7 +137,7 @@
 }
 
 .invalid-feedback {
-  color: #FF4F4F;
+  color: #ff4f4f;
   display: block;
   margin: -1rem 0 2rem;
 }
@@ -216,14 +214,14 @@
   }
 
   100% {
-    scale: 1.0;
+    scale: 1;
     opacity: 1;
   }
 }
 
 @keyframes fade-out-scale-keys {
   0% {
-    scale: 1.0;
+    scale: 1;
     opacity: 1;
   }
 
@@ -254,9 +252,8 @@
 }
 
 @layer base {
-
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role='button']:not(:disabled) {
     cursor: pointer;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
 interface YoutubeViewportProps {
   id: string;
@@ -6,7 +6,11 @@ interface YoutubeViewportProps {
   isPlaying: boolean;
   volume: number;
   onPlayingChange?: (isPlaying: boolean) => void;
-  onMetadataUpdate?: (meta: { title: string; duration: number; currentTime: number }) => void;
+  onMetadataUpdate?: (meta: {
+    title: string;
+    duration: number;
+    currentTime: number;
+  }) => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -28,17 +32,19 @@ function loadYouTubeAPI(): Promise<typeof window.YT> {
 
   youTubeAPIReadyPromise = new Promise((resolve) => {
     // Avoid injecting multiple script tags.
-    let script = document.getElementById("youtube-iframe-api") as HTMLScriptElement | null;
+    let script = document.getElementById(
+      'youtube-iframe-api'
+    ) as HTMLScriptElement | null;
     if (!script) {
-      script = document.createElement("script");
-      script.id = "youtube-iframe-api";
-      script.src = "https://www.youtube.com/iframe_api";
+      script = document.createElement('script');
+      script.id = 'youtube-iframe-api';
+      script.src = 'https://www.youtube.com/iframe_api';
       document.head.appendChild(script);
     }
 
     const previousCallback = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = () => {
-      if (typeof previousCallback === "function") {
+      if (typeof previousCallback === 'function') {
         previousCallback();
       }
       resolve(window.YT);
@@ -48,9 +54,16 @@ function loadYouTubeAPI(): Promise<typeof window.YT> {
   return youTubeAPIReadyPromise;
 }
 
-function updateMetadata(player: YT.Player, onMetadataUpdate?: (meta: { title: string; duration: number; currentTime: number }) => void) {
+function updateMetadata(
+  player: YT.Player,
+  onMetadataUpdate?: (meta: {
+    title: string;
+    duration: number;
+    currentTime: number;
+  }) => void
+) {
   if (!onMetadataUpdate) return;
-  const title = player.getVideoData().title || "";
+  const title = player.getVideoData().title || '';
   const duration = player.getDuration() || 0;
   const currentTime = player.getCurrentTime() || 0;
   onMetadataUpdate({ title, duration, currentTime });
@@ -63,7 +76,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   volume,
   onPlayingChange,
   onMetadataUpdate,
-  className = "",
+  className = '',
   style = {},
 }) => {
   // YT.Player mounts into this div — not directly into an iframe ref
@@ -76,13 +89,23 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   const onPlayingChangeRef = useRef(onPlayingChange);
   const onMetadataUpdateRef = useRef(onMetadataUpdate);
 
-  useEffect(() => { if (playerRef.current && autoplayEnabled) playerRef.current.playVideo(); }, [autoplayEnabled]);
-  useEffect(() => { isPlayingRef.current = isPlaying; }, [isPlaying]);
-  useEffect(() => { volumeRef.current = volume; }, [volume]);
-  useEffect(() => { onPlayingChangeRef.current = onPlayingChange; }, [onPlayingChange]);
-  useEffect(() => { onMetadataUpdateRef.current = onMetadataUpdate; }, [onMetadataUpdate]);
+  useEffect(() => {
+    if (playerRef.current && autoplayEnabled) playerRef.current.playVideo();
+  }, [autoplayEnabled]);
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
+  useEffect(() => {
+    volumeRef.current = volume;
+  }, [volume]);
+  useEffect(() => {
+    onPlayingChangeRef.current = onPlayingChange;
+  }, [onPlayingChange]);
+  useEffect(() => {
+    onMetadataUpdateRef.current = onMetadataUpdate;
+  }, [onMetadataUpdate]);
 
-  const videoId = id
+  const videoId = id;
 
   // Boot or re-create the player when videoId changes
   useEffect(() => {
@@ -115,16 +138,25 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
             playerRef.current = e.target;
             // Sync initial state
             e.target.setVolume(volumeRef.current);
-            autoplayEnabled ? e.target.playVideo() : e.target.pauseVideo();
+
+            if (autoplayEnabled) {
+              e.target.playVideo();
+            } else {
+              e.target.pauseVideo();
+            }
+
             if (onMetadataUpdateRef.current) {
               updateMetadata(e.target, onMetadataUpdateRef.current);
             }
-
           },
           onStateChange: (e) => {
             const state = e.target.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) onPlayingChangeRef.current?.(true);
-            if (state === YT.PlayerState.PAUSED || state === YT.PlayerState.ENDED) {
+            if (state === YT.PlayerState.PLAYING)
+              onPlayingChangeRef.current?.(true);
+            if (
+              state === YT.PlayerState.PAUSED ||
+              state === YT.PlayerState.ENDED
+            ) {
               onPlayingChangeRef.current?.(false);
             }
             updateMetadata(e.target, onMetadataUpdateRef.current);
@@ -146,7 +178,12 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   useEffect(() => {
     const p = playerRef.current;
     if (!p) return;
-    isPlaying ? p.playVideo() : p.pauseVideo();
+
+    if (isPlaying) {
+      p.playVideo();
+    } else {
+      p.pauseVideo();
+    }
   }, [isPlaying]);
 
   useEffect(() => {

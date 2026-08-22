@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,19 +8,24 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/lib/shadcn/ui/alert-dialog";
+} from '@/lib/shadcn/ui/alert-dialog';
 
 interface AutoplayModalProps {
   onAccept: () => void;
   onDecline: () => void;
 }
 
-const AutoplayModal: React.FC<AutoplayModalProps> = ({ onAccept, onDecline }) => {
+const AutoplayModal: React.FC<AutoplayModalProps> = ({
+  onAccept,
+  onDecline,
+}) => {
   return (
     <AlertDialog open>
       <AlertDialogContent className="bg-violet">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-primary-foreground">Autoplay Permission</AlertDialogTitle>
+          <AlertDialogTitle className="text-primary-foreground">
+            Autoplay Permission
+          </AlertDialogTitle>
           <AlertDialogDescription className="text-secondary-foreground">
             Would you like to autoplay videos with audio?
           </AlertDialogDescription>

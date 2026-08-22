@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { ButtonGroup } from "@/lib/shadcn/ui/button-group"
-import { Button } from "@/lib/shadcn/ui/button";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
-import { Slider } from "@/lib/shadcn/ui/slider";
+import React, { useState } from 'react';
+import { ButtonGroup } from '@/lib/shadcn/ui/button-group';
+import { Button } from '@/lib/shadcn/ui/button';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Slider } from '@/lib/shadcn/ui/slider';
 
 interface PlayerToolbarProps {
   isPlaying: boolean;
@@ -45,7 +45,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
           return prev;
         }
 
-        return prev + (1 / 10); // Increment by 0.1s for smoother progress
+        return prev + 1 / 10; // Increment by 0.1s for smoother progress
       });
     }, 1000 / 10); // Update every 0.1s for smoother progress
 
@@ -58,7 +58,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60);
     const s = Math.floor(secs % 60);
-    return `${m}:${s.toString().padStart(2, "0")}`;
+    return `${m}:${s.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -80,8 +80,8 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
                     className="bg-laser"
                     style={{
                       width: `${progress * 100}%`,
-                      height: "100%",
-                      transition: "width 0.2s",
+                      height: '100%',
+                      transition: 'width 0.2s',
                     }}
                   />
                 </div>
@@ -99,14 +99,14 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             <Button
               onClick={onTogglePlay}
               size="icon-sm"
-              aria-label={isPlaying ? "Pause" : "Play"}
+              aria-label={isPlaying ? 'Pause' : 'Play'}
             >
               {isPlaying ? <Pause /> : <Play />}
             </Button>
             <Button
               onClick={onToggleMute}
               size="icon-sm"
-              aria-label={volume === 0 ? "Unmute" : "Mute"}
+              aria-label={volume === 0 ? 'Unmute' : 'Mute'}
             >
               {volume === 0 ? <VolumeX /> : <Volume2 />}
             </Button>

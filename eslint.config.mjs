@@ -3,10 +3,17 @@ import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
-    eslint.configs.recommended,
-    ...tseslint.configs.recommended,
-    eslintConfigPrettier,
-    {
-        ignores: ["**/node_modules/", "**/dist/", "_build/", "**/deps/", "**/priv/", "**/assets/vendor/"],
-    }
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  eslintConfigPrettier,
+  {
+    ignores: [
+      '**/node_modules/',
+      '**/dist/',
+      '_build/',
+      '**/deps/',
+      '**/priv/',
+      '**/assets/vendor/',
+    ],
+  }
 );
