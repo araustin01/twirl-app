@@ -4,7 +4,7 @@
 # Automatically load and export variables from .env if it exists
 ifneq (,$(wildcard .env))
     include .env
-    export $(shell sed 's/=.*//' .env)
+    export $(shell sed -nE 's/^[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)=.*/\1/p' .env)
 endif
 
 .PHONY: dev db stop build test help lint lint-ts lint-elixir
