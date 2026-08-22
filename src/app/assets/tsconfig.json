@@ -10,17 +10,11 @@
     "checkJs": false,
     "strict": false,
     "esModuleInterop": true,
-    "types": [
-      "youtube"
-    ],
+    "types": ["youtube"],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./js/*"
-      ]
+      "@/*": ["./js/*"]
     }
   },
-  "include": [
-    "js/**/*"
-  ]
+  "include": ["js/**/*"]
 }

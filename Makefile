@@ -7,7 +7,7 @@ ifneq (,$(wildcard .env))
     export $(shell sed 's/=.*//' .env)
 endif
 
-.PHONY: dev db stop build test help
+.PHONY: dev db stop build test help lint lint-ts lint-elixir
 
 # Default command when running just `make`
 help:
@@ -45,3 +45,16 @@ build:
 # Run tests on host with env vars loaded
 test: db
 	mix test
+
+# Run all linters
+lint: lint-ts lint-elixir
+
+# TypeScript / Frontend linters (using ESLint & Prettier)
+lint-ts:
+	npx eslint .
+	npx prettier --check .
+
+# Elixir / Backend linters (using Mix Format & Credo)
+lint-elixir:
+	mix format --check-formatted
+	mix credo --strict

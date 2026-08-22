@@ -16,9 +16,6 @@ defmodule App.QueueController do
     # Here you would add the logic to add the video to the queue.
     # For now, we'll just log the video ID and return a success response.
     Logger.info("Adding video to queue: #{video_id}")
-
-
-
     conn
     |> put_status(:ok)
     |> json(%{message: "Video added to queue", video_id: video_id})
