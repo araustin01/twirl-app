@@ -13,7 +13,6 @@ interface TrackPanelProps {
 
 const TrackPanel: React.FC<TrackPanelProps> = ({ setVideoId }) => {
   const [videos, setVideos] = useState<VideoData[]>([]);
-  const [query, setQuery] = useState<string>('');
 
   const search = async (query: string) => {
     if (!query.trim()) {
@@ -39,12 +38,9 @@ const TrackPanel: React.FC<TrackPanelProps> = ({ setVideoId }) => {
           </InputGroupAddon>
           <InputGroupInput
             placeholder="Search"
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                search(query);
+                search(e.currentTarget.value);
               }
             }}
           />
