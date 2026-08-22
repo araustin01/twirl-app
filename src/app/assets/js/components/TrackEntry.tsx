@@ -13,16 +13,16 @@ interface TrackEntryProps extends HTMLAttributes<HTMLDivElement> {
 const TrackEntry: React.FC<TrackEntryProps> = ({ metadata, ...rest }) => {
   return (
     <div {...rest}>
-      <div className="h-full w-full items-center flex gap-2 p-2 hover:bg-electric">
+      <button className="h-full w-full items-center flex gap-2 p-2 hover:bg-electric">
         {metadata.thumbnail && (
           <img
             src={metadata.thumbnail}
-            alt=""
+            alt={metadata.title}
             className="h-16 w-28 shrink-0 object-cover"
           />
         )}
         {metadata.title}
-      </div>
+      </button>
     </div>
   );
 };
