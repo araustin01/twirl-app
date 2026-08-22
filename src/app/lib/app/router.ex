@@ -21,9 +21,15 @@ defmodule App.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", App do
-  #   pipe_through :api
-  # end
+  scope "/api", App do
+    pipe_through :api
+
+    get "/youtube/search", YoutubeController, :search
+
+    get "/queue", QueueController, :index
+    post "/queue", QueueController, :add
+    # TODO: add a delete path
+  end
 
   # Enables LiveDashboard only for development
   #

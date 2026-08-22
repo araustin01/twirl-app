@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { ButtonGroup } from "@/lib/shadcn/ui/button-group"
-import { Button } from "@/lib/shadcn/ui/button";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
-import { Slider } from "@/lib/shadcn/ui/slider";
+import React, { useState } from 'react';
+import { ButtonGroup } from '@/lib/shadcn/ui/button-group';
+import { Button } from '@/lib/shadcn/ui/button';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Slider } from '@/lib/shadcn/ui/slider';
 
-interface PlayerToolbarProps {
+interface TopBarProps {
   isPlaying: boolean;
   volume: number;
   onTogglePlay: () => void;
@@ -15,7 +15,7 @@ interface PlayerToolbarProps {
   currentTime?: number; // seconds
 }
 
-const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
+const TopBar: React.FC<TopBarProps> = ({
   isPlaying,
   volume,
   onTogglePlay,
@@ -45,7 +45,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
           return prev;
         }
 
-        return prev + (1 / 10); // Increment by 0.1s for smoother progress
+        return prev + 1 / 10; // Increment by 0.1s for smoother progress
       });
     }, 1000 / 10); // Update every 0.1s for smoother progress
 
@@ -58,14 +58,14 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60);
     const s = Math.floor(secs % 60);
-    return `${m}:${s.toString().padStart(2, "0")}`;
+    return `${m}:${s.toString().padStart(2, '0')}`;
   };
 
   return (
-    <div className="border-t-[6px] border-stage bg-space px-4 py-2.5">
+    <div className="border-b-[6px] border-stage bg-space px-4 py-2.5">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-6 sm:flex-row">
         {/* Track info section */}
-        <div className="flex w-full max-w-120 min-w-0 flex-col items-start justify-center">
+        <div className="flex w-full max-w-[20rem] min-w-0 flex-col items-start justify-center">
           {title && (
             <div className="mb-1 w-full truncate text-left text-base text-ghost">
               {title}
@@ -80,8 +80,8 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
                     className="bg-laser"
                     style={{
                       width: `${progress * 100}%`,
-                      height: "100%",
-                      transition: "width 0.2s",
+                      height: '100%',
+                      transition: 'width 0.2s',
                     }}
                   />
                 </div>
@@ -98,15 +98,15 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
           <ButtonGroup>
             <Button
               onClick={onTogglePlay}
-              size="icon"
-              aria-label={isPlaying ? "Pause" : "Play"}
+              size="icon-sm"
+              aria-label={isPlaying ? 'Pause' : 'Play'}
             >
               {isPlaying ? <Pause /> : <Play />}
             </Button>
             <Button
               onClick={onToggleMute}
-              size="icon"
-              aria-label={volume === 0 ? "Unmute" : "Mute"}
+              size="icon-sm"
+              aria-label={volume === 0 ? 'Unmute' : 'Mute'}
             >
               {volume === 0 ? <VolumeX /> : <Volume2 />}
             </Button>
@@ -117,7 +117,7 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
             onMouseLeave={() => setShowTooltip(false)}
           >
             {showTooltip && (
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap">
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 rounded bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap">
                 Volume: {volume}%
               </div>
             )}
@@ -144,4 +144,4 @@ const PlayerToolbar: React.FC<PlayerToolbarProps> = ({
   );
 };
 
-export default PlayerToolbar;
+export default TopBar;

@@ -38,3 +38,4 @@ node_modules/
 # IDE-specific files (e.g. from JetBrains IDEs).
 /.idea/
 
+**.env
