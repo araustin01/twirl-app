@@ -4,8 +4,7 @@ import YoutubeViewport from "../components/YoutubeViewport";
 import PlayerToolbar from "../components/PlayerToolbar";
 import AutoplayModal from "../components/AutoplayModal";
 import MusicToolbar from "@/components/MusicToolbar";
-import TrackPanel from "@/components/TrackPanel";
-import { Track } from "@base-ui/react/slider/index.parts";
+import TrackPanel from "@/components/TrackPanel"
 
 
 const DefaultPage: React.FC = () => {

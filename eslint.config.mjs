@@ -7,6 +7,6 @@ export default tseslint.config(
     ...tseslint.configs.recommended,
     eslintConfigPrettier,
     {
-        ignores: ["node_modules/", "dist/", "_build/", "deps/"]
+        ignores: ["**/node_modules/", "**/dist/", "_build/", "**/deps/", "**/priv/", "**/assets/vendor/"],
     }
 );
