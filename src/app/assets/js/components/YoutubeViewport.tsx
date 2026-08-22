@@ -11,14 +11,6 @@ interface YoutubeViewportProps {
   style?: React.CSSProperties;
 }
 
-const getYoutubeId = (input: string): string | null => {
-  const directIdRegex = /^[a-zA-Z0-9_-]{11}$/;
-  if (directIdRegex.test(input)) return input;
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = input.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
-};
-
 // Singleton promise to ensure the YouTube IFrame API is loaded only once
 let youTubeAPIReadyPromise: Promise<typeof window.YT> | null = null;
 
@@ -90,7 +82,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   useEffect(() => { onPlayingChangeRef.current = onPlayingChange; }, [onPlayingChange]);
   useEffect(() => { onMetadataUpdateRef.current = onMetadataUpdate; }, [onMetadataUpdate]);
 
-  const videoId = useMemo(() => getYoutubeId(`https://www.youtube.com/watch?v=${id}`), [id]);
+  const videoId = id
 
   // Boot or re-create the player when videoId changes
   useEffect(() => {
