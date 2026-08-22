@@ -248,7 +248,6 @@
 }
 
 @layer base {
-
   * {
     scrollbar-color: var(--color-electric) var(--color-space);
   }
