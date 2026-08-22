@@ -26,7 +26,7 @@ defmodule Core.Youtube do
 
     :httpc.request(:get, {String.to_charlist(@youtube_search_url <> "?" <> params), []}, [], [])
     |> case do
-      {:ok, {{_, 200, _}, _headers, body}} -> {:ok, List.to_string(body)}
+      {:ok, {{_, 200, _}, _headers, body}} -> {:ok, IO.iodata_to_binary(body)}
       _ -> {:error, :upstream}
     end
   end
