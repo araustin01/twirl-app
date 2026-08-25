@@ -1,6 +1,6 @@
 # twirl.fm
 
-twirl.fm is a browser-based, real-time social music platform inspired by [plug.dj](http://plug.dj).
+twirl.fm is a browser-based, real-time social music platform inspired by [plug.dj](https://en.wikipedia.org/wiki/Plug.dj).
 
 The project is focused on:
 
