@@ -32,11 +32,11 @@ The production Dockerfile currently uses Elixir 1.13.1 with Erlang/OTP 24.2, whi
 From the repository root:
 
 ```sh
+make db
 mix setup
 cd src/app/assets
 npm install
 cd ../../..
-make db
 mix ecto.create
 ```
 
