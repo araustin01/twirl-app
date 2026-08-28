@@ -1,18 +1,42 @@
 import React, { useEffect, useRef } from 'react';
-
-interface YoutubeViewportProps {
+import { HTMLAttributes } from 'react';
+/**
+ * Props for the YoutubeViewport component.
+ */
+interface YoutubeViewportProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * The YouTube video ID to be played in the viewport.
+   */
   id: string;
+  /**
+   * Indicates whether autoplay is enabled for the video.
+   * @default false
+   */
   autoplayEnabled?: boolean;
+  /**
+   * Indicates whether the video is currently playing.
+   * @default false
+   */
   isPlaying: boolean;
+  /**
+   * Represents the current volume level, ranging from 0 to 100.
+   * @default 0
+   */
   volume: number;
+  /**
+   * Callback function to handle changes in the playing state of the video.
+   * @param isPlaying Indicates whether the video is currently playing.
+   */
   onPlayingChange?: (isPlaying: boolean) => void;
+  /**
+   * Callback function to handle updates to the video's metadata.
+   * @param meta An object containing the video's title, duration, and current playback time.
+   */
   onMetadataUpdate?: (meta: {
     title: string;
     duration: number;
     currentTime: number;
   }) => void;
-  className?: string;
-  style?: React.CSSProperties;
 }
 
 // Singleton promise to ensure the YouTube IFrame API is loaded only once
@@ -76,8 +100,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   volume,
   onPlayingChange,
   onMetadataUpdate,
-  className = '',
-  style = {},
+  ...rest
 }) => {
   // YT.Player mounts into this div — not directly into an iframe ref
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -195,7 +218,7 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   if (!videoId) return <span>Invalid YouTube URL</span>;
 
   return (
-    <div className={`youtube-viewport-container ${className}`} style={style}>
+    <div {...rest}>
       {/* YT.Player replaces this div with an iframe internally */}
       <div ref={containerRef} className="youtube-viewport-iframe" />
     </div>

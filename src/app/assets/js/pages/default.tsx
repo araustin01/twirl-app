@@ -88,6 +88,7 @@ const DefaultPage: React.FC = () => {
               volume={volume}
               onPlayingChange={setIsPlaying}
               onMetadataUpdate={handleMetadataUpdate}
+              className="youtube-viewport-container"
             />
           </div>
         </div>
