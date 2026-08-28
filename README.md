@@ -9,7 +9,7 @@ The project is focused on:
 - Community-driven DJ rotation (not implemented)
 - Interactive chat and reactions (not implemented)
 
-This repository is an active work in progress. The current application is a Phoenix umbrella project with a React and TypeScript frontend. The backend and frontend are still evolving toward the full twirl.fm experience described above. Music streaming is currently served by the Youtube client API.
+This repository is an active work in progress. The current application is a Phoenix umbrella project with a React and TypeScript frontend. The backend and frontend are still evolving toward the full twirl.fm experience described above. Music streaming is currently served by the YouTube client API.
 
 ## Development Environment
 
