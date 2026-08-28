@@ -15,7 +15,6 @@ interface YoutubeViewportProps extends HTMLAttributes<HTMLDivElement> {
   autoplayEnabled?: boolean;
   /**
    * Indicates whether the video is currently playing.
-   * @default false
    */
   isPlaying: boolean;
   /**

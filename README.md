@@ -9,7 +9,7 @@ The project is focused on:
 - Community-driven DJ rotation (not implemented)
 - Interactive chat and reactions (not implemented)
 
-This repository is an active work in progress. The current application is a Phoenix umbrella project with a React and TypeScript frontend. The backend and frontend are still evolving toward the full twirl.fm experience described above. Music streaming is currently served by the Youtube client API.
+This repository is an active work in progress. The current application is a Phoenix umbrella project with a React and TypeScript frontend. The backend and frontend are still evolving toward the full twirl.fm experience described above. Music streaming is currently served by the YouTube client API.
 
 ## Development Environment
 
@@ -32,11 +32,11 @@ The production Dockerfile currently uses Elixir 1.13.1 with Erlang/OTP 24.2, whi
 From the repository root:
 
 ```sh
+make db
 mix setup
 cd src/app/assets
 npm install
 cd ../../..
-make db
 mix ecto.create
 ```
 
@@ -83,7 +83,7 @@ Run commands from the repository root:
 make dev       # Start PostgreSQL and Phoenix
 make db        # Start PostgreSQL only
 make stop      # Stop Docker Compose services
-make test      # Create/migrate the test database and run Elixir tests
+make test      # Run Elixir tests
 make lint      # Run TypeScript, Prettier, Mix Format, and Credo checks
 make build     # Build the production Docker image
 ```
