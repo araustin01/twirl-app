@@ -83,7 +83,7 @@ Run commands from the repository root:
 make dev       # Start PostgreSQL and Phoenix
 make db        # Start PostgreSQL only
 make stop      # Stop Docker Compose services
-make test      # Create/migrate the test database and run Elixir tests
+make test      # Run Elixir tests
 make lint      # Run TypeScript, Prettier, Mix Format, and Credo checks
 make build     # Build the production Docker image
 ```
