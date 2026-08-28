@@ -65,13 +65,13 @@ make stop
 
 The database uses these development defaults:
 
-| Setting | Value |
-| --- | --- |
-| Host | `localhost` |
-| Port | `5432` |
-| Database | `core_dev` |
-| User | `postgres` |
-| Password | `postgres` |
+| Setting  | Value       |
+| -------- | ----------- |
+| Host     | `localhost` |
+| Port     | `5432`      |
+| Database | `core_dev`  |
+| User     | `postgres`  |
+| Password | `postgres`  |
 
 If port `5432` is already in use, update `docker-compose.yml` and the development database configuration in `config/dev.exs` together.
 

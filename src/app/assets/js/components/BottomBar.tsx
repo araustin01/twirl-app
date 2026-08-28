@@ -14,7 +14,7 @@ interface BottomBarProps {
 }
 
 /**
- * The BottomBar component serves as a control bar at the bottom of the application interface. 
+ * The BottomBar component serves as a control bar at the bottom of the application interface.
  * It provides users with quick access to audio controls and the ability to add songs to play.
  */
 const BottomBar: React.FC<BottomBarProps> = ({ onTogglePanelBtn }) => {

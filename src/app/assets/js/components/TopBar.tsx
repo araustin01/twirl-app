@@ -46,7 +46,7 @@ interface TopBarProps {
 
 /**
  * The TopBar component serves as a control bar at the top of the application interface.
- * It provides users with quick access to playback controls, volume adjustments, and displays 
+ * It provides users with quick access to playback controls, volume adjustments, and displays
  * the current track's metadata.
  */
 const TopBar: React.FC<TopBarProps> = ({
