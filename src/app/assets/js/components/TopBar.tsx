@@ -4,17 +4,50 @@ import { Button } from '@/lib/shadcn/ui/button';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { Slider } from '@/lib/shadcn/ui/slider';
 
+/**
+ * Props for the TopBar component.
+ */
 interface TopBarProps {
+  /**
+   * Indicates whether the video is currently playing.
+   */
   isPlaying: boolean;
+  /**
+   * Represents the current volume level, ranging from 0 to 100.
+   */
   volume: number;
+  /**
+   * Callback function to handle the play btn toggle action.
+   */
   onTogglePlay: () => void;
+  /**
+   * Callback function to handle the mute btn toggle action.
+   */
   onToggleMute: () => void;
+  /**
+   * Callback function to handle volume changes.
+   * @param volume The new volume level, ranging from 0 to 100.
+   */
   onVolumeChange: (volume: number) => void;
+  /**
+   * The title of the currently playing video.
+   */
   title?: string;
+  /**
+   * The total duration of the currently playing video in seconds.
+   */
   duration?: number; // seconds
+  /**
+   * The current playback time of the video in seconds.
+   */
   currentTime?: number; // seconds
 }
 
+/**
+ * The TopBar component serves as a control bar at the top of the application interface.
+ * It provides users with quick access to playback controls, volume adjustments, and displays
+ * the current track's metadata.
+ */
 const TopBar: React.FC<TopBarProps> = ({
   isPlaying,
   volume,

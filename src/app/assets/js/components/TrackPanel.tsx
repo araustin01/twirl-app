@@ -7,10 +7,22 @@ import {
 import { SearchIcon } from 'lucide-react';
 import TrackEntry, { VideoData } from './TrackEntry';
 
+/**
+ * Props for the TrackPanel component.
+ */
 interface TrackPanelProps {
+  /**
+   * Callback function to set the currently selected video ID.
+   * @param videoId The ID of the selected video.
+   */
   setVideoId?: (videoId: string) => void;
 }
 
+/**
+ * The TrackPanel component provides a user interface for searching and displaying a list of video tracks.
+ * Users can search for videos, and the results are displayed as a list of TrackEntry components.
+ * Clicking on a TrackEntry will trigger the setVideoId callback with the selected video's ID.
+ */
 const TrackPanel: React.FC<TrackPanelProps> = ({ setVideoId }) => {
   const [videos, setVideos] = useState<VideoData[]>([]);
 

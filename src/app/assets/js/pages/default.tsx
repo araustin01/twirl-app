@@ -82,12 +82,13 @@ const DefaultPage: React.FC = () => {
             onClick={() => setShowTrackPanel(false)}
           >
             <YoutubeViewport
-              id={videoID}
+              videoId={videoID}
               autoplayEnabled={autoplayEnabled}
               isPlaying={isPlaying}
               volume={volume}
               onPlayingChange={setIsPlaying}
               onMetadataUpdate={handleMetadataUpdate}
+              className="youtube-viewport-container"
             />
           </div>
         </div>

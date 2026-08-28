@@ -10,11 +10,26 @@ import {
   AlertDialogTitle,
 } from '@/lib/shadcn/ui/alert-dialog';
 
+/**
+ * Props for the AutoplayModal component.
+ */
 interface AutoplayModalProps {
+  /**
+   * Callback function to handle the acceptance of autoplay permission.
+   */
   onAccept: () => void;
+  /**
+   * Callback function to handle the decline of autoplay permission.
+   */
   onDecline: () => void;
 }
 
+/**
+ * Serves the purpose of asking the user for permission to autoplay videos with audio.
+ * This action circumvents browser restrictions on autoplaying media with sound.
+ *
+ * @deprecated This component may not be necessary with later implementations.
+ */
 const AutoplayModal: React.FC<AutoplayModalProps> = ({
   onAccept,
   onDecline,
