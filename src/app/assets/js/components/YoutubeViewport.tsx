@@ -7,7 +7,7 @@ interface YoutubeViewportProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The YouTube video ID to be played in the viewport.
    */
-  id: string;
+  videoId: string;
   /**
    * Indicates whether autoplay is enabled for the video.
    * @default false
@@ -61,7 +61,8 @@ function loadYouTubeAPI(): Promise<typeof window.YT> {
     ) as HTMLScriptElement | null;
     if (!script) {
       script = document.createElement('script');
-      script.id = 'youtube-iframe-api';
+      script.videoId
+        = 'youtube-iframe-api';
       script.src = 'https://www.youtube.com/iframe_api';
       document.head.appendChild(script);
     }
@@ -94,7 +95,7 @@ function updateMetadata(
 }
 
 const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
-  id,
+  videoId,
   autoplayEnabled = false,
   isPlaying,
   volume,
@@ -127,8 +128,6 @@ const YoutubeViewport: React.FC<YoutubeViewportProps> = ({
   useEffect(() => {
     onMetadataUpdateRef.current = onMetadataUpdate;
   }, [onMetadataUpdate]);
-
-  const videoId = id;
 
   // Boot or re-create the player when videoId changes
   useEffect(() => {
