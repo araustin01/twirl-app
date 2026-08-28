@@ -60,8 +60,7 @@ function loadYouTubeAPI(): Promise<typeof window.YT> {
     ) as HTMLScriptElement | null;
     if (!script) {
       script = document.createElement('script');
-      script.videoId
-        = 'youtube-iframe-api';
+      script.videoId = 'youtube-iframe-api';
       script.src = 'https://www.youtube.com/iframe_api';
       document.head.appendChild(script);
     }
