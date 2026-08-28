@@ -14,7 +14,6 @@ interface TopBarProps {
   isPlaying: boolean;
   /**
    * Represents the current volume level, ranging from 0 to 100.
-   * @default 0
    */
   volume: number;
   /**
