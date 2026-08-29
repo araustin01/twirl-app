@@ -23,6 +23,23 @@ import { Socket } from 'phoenix';
 import { LiveSocket } from 'phoenix_live_view';
 import topbar from '../vendor/topbar';
 
+import { setupDiscord } from './discord';
+
+// Declare the property on the global Window interface
+declare global {
+  interface Window {
+    DISCORD_CLIENT_ID: string;
+  }
+}
+
+setupDiscord(window.DISCORD_CLIENT_ID || "")
+  .then((authResponse) => {
+    console.log('Discord authentication successful:', authResponse);
+  })
+  .catch((error) => {
+    console.error('Discord authentication failed:', error);
+  });
+
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute('content');
@@ -47,6 +64,7 @@ window.liveSocket = liveSocket;
 import React from 'react';
 import ReactDOM from 'react-dom';
 import DefaultPage from './pages/default';
+import process from 'process';
 
 const root = document.getElementById('root');
 ReactDOM.render(<DefaultPage />, root);
