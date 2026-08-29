@@ -8,6 +8,12 @@ defmodule App.Router do
     plug :put_root_layout, {App.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    # ADD custom secure headers that permit Discord iframe embedding:
+    plug :put_secure_browser_headers, %{
+      "x-frame-options" => "ALLOWALL",
+      "content-security-policy" => "frame-ancestors 'self' https://*.discordsays.com https://discord.com;"
+    }
   end
 
   pipeline :api do
@@ -23,6 +29,9 @@ defmodule App.Router do
   # Other scopes may use custom stacks.
   scope "/api", App do
     pipe_through :api
+
+    # This route is for exchanging the Discord authorization code for an access token
+    post "/token", DiscordController, :exchange_token
 
     get "/youtube/search", YoutubeController, :search
 

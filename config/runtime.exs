@@ -71,3 +71,5 @@ if config_env() == :prod do
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 end
+
+config :app, :discord_client_id, System.get_env("DISCORD_CLIENT_ID")

@@ -47,4 +47,12 @@ defmodule App.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug App.Router
+
+  # plug Corsica,
+  #   origins: [
+  #     "http://localhost:4000",
+  #     ~r/^https:\/\/.*\.discordsays\.com$/
+  #   ],
+  #   allow_headers: ["content-type", "authorization", "x-csrf-token"],
+  #   allow_credentials: true
 end

@@ -51,7 +51,8 @@ defmodule App.MixProject do
       {:gettext, "~> 0.20"},
       {:core, in_umbrella: true},
       {:jason, "~> 1.4"},
-      {:plug_cowboy, "~> 2.7"}
+      {:plug_cowboy, "~> 2.7"},
+      {:req, "~> 0.5"}
     ]
   end
 
