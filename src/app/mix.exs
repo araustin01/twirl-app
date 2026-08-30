@@ -52,7 +52,8 @@ defmodule App.MixProject do
       {:core, in_umbrella: true},
       {:jason, "~> 1.4"},
       {:plug_cowboy, "~> 2.7"},
-      {:req, "~> 0.5"}
+      {:req, "~> 0.5"},
+      # {:corsica, "~> 2.0"}
     ]
   end
 
