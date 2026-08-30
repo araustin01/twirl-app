@@ -36,9 +36,6 @@ defmodule App.Router do
   scope "/api", App do
     pipe_through :api
 
-    # This route is for exchanging the Discord authorization code for an access token
-    post "/token", DiscordController, :exchange_token
-
     get "/youtube/search", YoutubeController, :search
 
     get "/queue", QueueController, :index
