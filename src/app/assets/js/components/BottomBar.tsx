@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonGroup } from '@/lib/shadcn/ui/button-group';
 import { Button } from '@/lib/shadcn/ui/button';
-import { AudioLines, CircleChevronRight } from 'lucide-react';
+import { AudioLines } from 'lucide-react';
 
 /**
  * Props for the BottomBar component.
