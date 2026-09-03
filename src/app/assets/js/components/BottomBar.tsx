@@ -39,13 +39,6 @@ const BottomBar: React.FC<BottomBarProps> = ({ onTogglePanelBtn }) => {
             >
               <AudioLines />
             </Button>
-            <Button
-              variant="ghost"
-              size="lg"
-              className="rounded-none! flex-1 justify-start"
-            >
-              <CircleChevronRight /> Add a song to play
-            </Button>
           </ButtonGroup>
         </div>
       </div>
