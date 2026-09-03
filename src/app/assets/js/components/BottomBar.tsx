@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonGroup } from '@/lib/shadcn/ui/button-group';
 import { Button } from '@/lib/shadcn/ui/button';
-import { AudioLines, CircleChevronRight } from 'lucide-react';
+import { AudioLines } from 'lucide-react';
 
 /**
  * Props for the BottomBar component.
@@ -38,13 +38,6 @@ const BottomBar: React.FC<BottomBarProps> = ({ onTogglePanelBtn }) => {
               onClick={onTogglePanelBtn}
             >
               <AudioLines />
-            </Button>
-            <Button
-              variant="ghost"
-              size="lg"
-              className="rounded-none! flex-1 justify-start"
-            >
-              <CircleChevronRight /> Add a song to play
             </Button>
           </ButtonGroup>
         </div>
