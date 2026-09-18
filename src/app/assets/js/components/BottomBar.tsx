@@ -20,28 +20,14 @@ interface BottomBarProps {
 const BottomBar: React.FC<BottomBarProps> = ({ onTogglePanelBtn }) => {
   return (
     <div className="border-t-[6px] text-ghost border-stage bg-space">
-      <div className="flex h-full w-full">
-        <div className="flex w-full">
-          <ButtonGroup
-            className="
-                    w-full
-                    [&>[data-slot]:not(:has(~[data-slot]))]:rounded-none!
-                    *:data-[slot=button]:h-14
-                    *:data-[slot=button]:px-4
-                    *:data-[slot=button]:text-base
-                    [&>[data-slot=button]_svg]:size-6"
-          >
-            <Button
-              variant="ghost"
-              size="lg"
-              className="rounded-none!"
-              onClick={onTogglePanelBtn}
-            >
-              <AudioLines />
-            </Button>
-          </ButtonGroup>
-        </div>
-      </div>
+      <ButtonGroup>
+        <Button
+          className="bg-space py-5 rounded-sm"
+          onClick={onTogglePanelBtn}
+        >
+          <AudioLines className="size-8" />
+        </Button>
+      </ButtonGroup>
     </div>
   );
 };
