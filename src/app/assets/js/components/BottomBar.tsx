@@ -21,10 +21,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ onTogglePanelBtn }) => {
   return (
     <div className="border-t-[6px] text-ghost border-stage bg-space">
       <ButtonGroup>
-        <Button
-          className="bg-space py-5 rounded-sm"
-          onClick={onTogglePanelBtn}
-        >
+        <Button className="bg-space py-5 rounded-sm" onClick={onTogglePanelBtn}>
           <AudioLines className="size-7" />
         </Button>
       </ButtonGroup>

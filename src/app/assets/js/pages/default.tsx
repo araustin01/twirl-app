@@ -5,7 +5,6 @@ import TopBar from '@/components/TopBar';
 import AutoplayModal from '../components/AutoplayModal';
 import BottomBar from '@/components/BottomBar';
 import TrackPanel from '@/components/TrackPanel';
-import { Button } from '@/lib/shadcn/ui/button';
 import QueueControl from '@/components/QueueControl';
 
 const DefaultPage: React.FC = () => {
@@ -79,9 +78,11 @@ const DefaultPage: React.FC = () => {
         <div className="relative flex flex-col h-full w-full flex-1">
           {/* Track panel overlay */}
 
-          {showTrackPanel && <div className="flex absolute z-10 h-full w-md">
-            <TrackPanel setVideoId={updateVideoID} />
-          </div>}
+          {showTrackPanel && (
+            <div className="flex absolute z-10 h-full w-md">
+              <TrackPanel setVideoId={updateVideoID} />
+            </div>
+          )}
 
           <div className="flex w-full max-w-125 mx-auto pt-1">
             <YoutubeViewport
@@ -96,7 +97,10 @@ const DefaultPage: React.FC = () => {
           </div>
 
           {/* Placeholder for additional content or controls */}
-          <div className="relative flex-1 w-2/3 mx-auto" onClick={() => setShowTrackPanel(false)}>
+          <div
+            className="relative flex-1 w-2/3 mx-auto"
+            onClick={() => setShowTrackPanel(false)}
+          >
             <div className="absolute flex bottom-0 pb-10">
               <QueueControl />
             </div>
@@ -108,7 +112,7 @@ const DefaultPage: React.FC = () => {
             onTogglePanelBtn={() => setShowTrackPanel((prev) => !prev)}
           />
         </div>
-      </div >
+      </div>
     </>
   );
 };

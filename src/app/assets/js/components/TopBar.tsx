@@ -131,7 +131,11 @@ const TopBar: React.FC<TopBarProps> = ({
               onClick={onTogglePlay}
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
-              {isPlaying ? <Pause className="size-4" /> : <Play className="size-4" />}
+              {isPlaying ? (
+                <Pause className="size-4" />
+              ) : (
+                <Play className="size-4" />
+              )}
             </Button>
             <Button
               className="border-stage bg-void h-6 px-1.5 text-ghost"
@@ -139,7 +143,11 @@ const TopBar: React.FC<TopBarProps> = ({
               onClick={onToggleMute}
               aria-label={volume === 0 ? 'Unmute' : 'Mute'}
             >
-              {volume === 0 ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+              {volume === 0 ? (
+                <VolumeX className="size-4" />
+              ) : (
+                <Volume2 className="size-4" />
+              )}
             </Button>
           </ButtonGroup>
           <div className="relative w-30">
