@@ -58,8 +58,6 @@ const TopBar: React.FC<TopBarProps> = ({
   duration,
   currentTime,
 }) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-
   // Local timer state for progress
   const [localTime, setLocalTime] = useState<number>(currentTime || 0);
 
@@ -144,21 +142,12 @@ const TopBar: React.FC<TopBarProps> = ({
               {volume === 0 ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
             </Button>
           </ButtonGroup>
-          <div
-            className="relative w-30"
-            onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
-          >
-            {showTooltip && (
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 rounded bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap">
-                Volume: {volume}%
-              </div>
-            )}
+          <div className="relative w-30">
             <Slider
               min={0}
               max={100}
               value={volume}
-              step={1}
+              step={5}
               onValueChange={(value: number) => {
                 onVolumeChange(value);
               }}
