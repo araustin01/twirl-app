@@ -107,17 +107,15 @@ const TopBar: React.FC<TopBarProps> = ({
           {duration && currentTime !== undefined && (
             <div className="flex w-full items-center gap-2">
               {/* Progress slider (non-interactive) */}
-              <div className="relative flex-1">
-                <div className="h-1 overflow-hidden rounded bg-void">
-                  <div
-                    className="bg-laser"
-                    style={{
-                      width: `${progress * 100}%`,
-                      height: '100%',
-                      transition: 'width 0.2s',
-                    }}
-                  />
-                </div>
+              <div className="h-1 bg-void rounded relative flex-1">
+                <div
+                  className="bg-laser rounded"
+                  style={{
+                    width: `${progress * 100}%`,
+                    height: '100%',
+                    transition: 'width 0.2s',
+                  }}
+                />
               </div>
               {/* Time left */}
               <div className="min-w-12 text-right text-sm text-ghost">
@@ -130,18 +128,20 @@ const TopBar: React.FC<TopBarProps> = ({
         <div className="flex items-center gap-2">
           <ButtonGroup>
             <Button
+              className="border-stage bg-void h-6 px-1.5 text-ghost"
+              variant="outline"
               onClick={onTogglePlay}
-              size="icon-sm"
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
-              {isPlaying ? <Pause /> : <Play />}
+              {isPlaying ? <Pause className="size-4" /> : <Play className="size-4" />}
             </Button>
             <Button
+              className="border-stage bg-void h-6 px-1.5 text-ghost"
+              variant="outline"
               onClick={onToggleMute}
-              size="icon-sm"
               aria-label={volume === 0 ? 'Unmute' : 'Mute'}
             >
-              {volume === 0 ? <VolumeX /> : <Volume2 />}
+              {volume === 0 ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
             </Button>
           </ButtonGroup>
           <div
@@ -163,12 +163,9 @@ const TopBar: React.FC<TopBarProps> = ({
                 onVolumeChange(value);
               }}
               className="
-                  **:data-[slot=slider-track]:h-1.5
-                  **:data-[slot=slider-track]:bg-stage
-                  **:data-[slot=slider-range]:bg-violet
-                  **:data-[slot=slider-thumb]:border-white
-                  **:data-[slot=slider-thumb]:h-3
-                  **:data-[slot=slider-thumb]:w-2"
+              **:data-[slot=slider-track]:h-1.5
+              **:data-[slot=slider-thumb]:size-3
+              "
             />
           </div>
         </div>
