@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from '@/lib/shadcn/ui/button';
-import { ButtonGroup } from '@/lib/shadcn/ui/button-group';
 import { Users } from 'lucide-react';
 
 const QueueControl: React.FC = () => {
