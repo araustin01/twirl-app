@@ -5,6 +5,9 @@ import TopBar from '@/components/TopBar';
 import AutoplayModal from '../components/AutoplayModal';
 import BottomBar from '@/components/BottomBar';
 import TrackPanel from '@/components/TrackPanel';
+import QueueControl from '@/components/controls/QueueControl';
+import ActionGroup from '@/components/controls/ActionGroup';
+import DJSlot from '@/components/DJSlot';
 
 const DefaultPage: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
@@ -73,14 +76,17 @@ const DefaultPage: React.FC = () => {
           />
         </div>
 
-        <div className="relative flex-1 flex justify-center px-4 pt-1">
-          <div className="absolute z-10 inset-0 max-w-[30em]">
-            {showTrackPanel && <TrackPanel setVideoId={updateVideoID} />}
-          </div>
-          <div
-            className="relative w-full max-w-125"
-            onClick={() => setShowTrackPanel(false)}
-          >
+        {/* Main content area */}
+        <div className="relative flex flex-col h-full w-full flex-1">
+          {/* Track panel overlay */}
+
+          {showTrackPanel && (
+            <div className="flex absolute z-10 h-full w-md">
+              <TrackPanel setVideoId={updateVideoID} />
+            </div>
+          )}
+
+          <div className="flex w-full max-w-125 mx-auto pt-1">
             <YoutubeViewport
               videoId={videoID}
               autoplayEnabled={autoplayEnabled}
@@ -90,6 +96,26 @@ const DefaultPage: React.FC = () => {
               onMetadataUpdate={handleMetadataUpdate}
               className="youtube-viewport-container"
             />
+          </div>
+
+          {/* Placeholder for additional content or controls */}
+          <div
+            className="relative flex-1 w-2/3 mx-auto"
+            onClick={() => setShowTrackPanel(false)}
+          >
+            <div className="absolute w-full bottom-0 pb-10">
+              <div className="justify-self-center w-4/5 grid grid-cols-3 items-center">
+                <div className="justify-self-start">
+                  <QueueControl />
+                </div>
+                <div className="justify-self-center">
+                  <DJSlot />
+                </div>
+                <div className="justify-self-end">
+                  <ActionGroup />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

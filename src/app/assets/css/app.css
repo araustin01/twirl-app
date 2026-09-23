@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
 @import './components/youtube-viewport.css';
+@import './components/queue-control.css';
 
 @theme inline {
   --color-background: var(--background);
