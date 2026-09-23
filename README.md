@@ -34,11 +34,14 @@ From the repository root:
 ```sh
 make db
 mix setup
+npm install
 cd src/app/assets
 npm install
 cd ../../..
 mix ecto.create
 ```
+
+The repository-level `npm install` installs the development tooling in `package.json`, including [husky](https://github.com/HumanTarget/husky), which runs on the same install via the `prepare` script. Husky configures Git's `core.hooksPath` to `.husky` automatically, so no further manual hook setup is required.
 
 `mix setup` fetches the umbrella's Elixir dependencies. The frontend dependencies are kept in `src/app/assets/package.json` and are installed separately with npm. `mix ecto.create` creates the `core_dev` database in the local PostgreSQL service.
 
@@ -89,6 +92,16 @@ make build     # Build the production Docker image
 ```
 
 For frontend dependencies and source, see [src/app/assets](src/app/assets). The umbrella applications live in [src/core](src/core) and [src/app](src/app). Shared environment configuration is in [config](config).
+
+### Pre-commit hook
+
+A Husky pre-commit hook is set up via [husky](https://github.com/HumanTarget/husky), which installs itself through the `prepare` script in `package.json` on every `npm install`. The hook (`.husky/pre-commit`) runs before each `git commit` and:
+
+1. Runs `make lint` — TypeScript, Prettier, Mix Format, and Credo checks.
+2. Runs `make test` — the Elixir test suite.
+3. Reformats any staged frontend files with Prettier (via `--ignore-unknown`) and re-stages the result so the commit includes the automatic fixes.
+
+If the hook fails, the commit is aborted until the lint or tests pass. The hook lives in [.husky/pre-commit](.husky/pre-commit); it is activated automatically by Husky when dependencies are installed. To opt out for a single commit, use `git commit --no-verify`, but it is preferred to fix the reported issues instead.
 
 ## Project Structure
 
