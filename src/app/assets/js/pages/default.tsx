@@ -5,7 +5,9 @@ import TopBar from '@/components/TopBar';
 import AutoplayModal from '../components/AutoplayModal';
 import BottomBar from '@/components/BottomBar';
 import TrackPanel from '@/components/TrackPanel';
-import QueueControl from '@/components/QueueControl';
+import QueueControl from '@/components/controls/QueueControl';
+import ActionGroup from '@/components/controls/ActionGroup';
+import DJSlot from '@/components/DJSlot';
 
 const DefaultPage: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
@@ -101,8 +103,18 @@ const DefaultPage: React.FC = () => {
             className="relative flex-1 w-2/3 mx-auto"
             onClick={() => setShowTrackPanel(false)}
           >
-            <div className="absolute flex bottom-0 pb-10">
-              <QueueControl />
+            <div className="absolute w-full bottom-0 pb-10">
+              <div className="justify-self-center w-4/5 grid grid-cols-3 items-center">
+                <div className="justify-self-start">
+                  <QueueControl />
+                </div>
+                <div className="justify-self-center">
+                  <DJSlot />
+                </div>
+                <div className="justify-self-end">
+                  <ActionGroup />
+                </div>
+              </div>
             </div>
           </div>
         </div>
