@@ -1,14 +1,14 @@
 defmodule App.Router do
   use App, :router
 
-  csp_directives = [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' https://www.youtube.com https://www.gstatic.com",
-    "img-src 'self' data: https://i.ytimg.com https://*.ytimg.com",
-    "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
-    "connect-src 'self' https://www.youtube.com https://*.youtube.com",
-    "frame-ancestors 'self'"
-  ]
+  # csp_directives = [
+  #   "default-src 'self'",
+  #   "script-src 'self' 'unsafe-inline' https://www.youtube.com https://www.gstatic.com",
+  #   "img-src 'self' data: https://i.ytimg.com https://*.ytimg.com",
+  #   "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
+  #   "connect-src 'self' https://www.youtube.com https://*.youtube.com",
+  #   "frame-ancestors 'self'"
+  # ]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -17,9 +17,9 @@ defmodule App.Router do
     plug :put_root_layout, {App.LayoutView, :root}
     plug :protect_from_forgery
 
-    plug :put_secure_browser_headers, %{
-      "content-security-policy" => Enum.join(csp_directives, "; ") <> ";"
-    }
+    # plug :put_secure_browser_headers, %{
+    #   "content-security-policy" => Enum.join(csp_directives, "; ") <> ";"
+    # }
   end
 
   pipeline :api do
